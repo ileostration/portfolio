@@ -1,0 +1,2177 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Hullo Brand Identity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Caveat:wght@400;600;700&display=swap">
+<style>
+/* ============================================================
+   HULLO — brand identity case study
+   Concept: the page is a stack of "While You Were Out" slips.
+   Scrolling is a phone call. Motion pattern: ring, pick up, settle.
+   ============================================================ */
+
+/* ---------- tokens: light (default) ---------- */
+:root{
+  color-scheme: light;
+  --paper:#FBF4E6;
+  --paper-2:#F3E8CF;
+  --ink:#141A26;
+  --ink-soft:#4B5263;
+  --amber:#F5A524;
+  --amber-text:#8F5300;
+  --coral:#F26B5B;
+  --coral-text:#B7321F;
+  --sage:#8DB89A;
+  --sage-text:#2E6650;
+
+  --bg:var(--paper);
+  --surface:var(--paper-2);
+  --text:var(--ink);
+  --text-soft:var(--ink-soft);
+  --line: rgba(20,26,38,.14);
+  --line-strong: rgba(20,26,38,.28);
+
+  --shadow: 0 14px 32px -14px rgba(20,26,38,.30);
+  --ease: cubic-bezier(0.16,1,0.3,1);
+  --dur-ui: 240ms;
+  --dur-slip: 480ms;
+  --dur-reveal: 600ms;
+
+  --r-slip: 2px;
+  --r-panel: 12px;
+  --r-pill: 999px;
+
+  --sp-1:4px; --sp-2:8px; --sp-3:16px; --sp-4:24px; --sp-5:32px;
+  --sp-6:48px; --sp-7:72px; --sp-8:112px; --sp-9:176px;
+
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-ui: "Instrument Sans", -apple-system, "Segoe UI", sans-serif;
+  --font-hand: "Caveat", "Segoe Script", cursive;
+
+  --fs-display: clamp(56px, calc(56px + 120 * (100vw - 390px) / 1050), 176px);
+  --fs-h1:      clamp(40px, calc(40px + 72  * (100vw - 390px) / 1050), 112px);
+  --fs-h2:      clamp(30px, calc(30px + 42  * (100vw - 390px) / 1050), 72px);
+  --fs-h3:      clamp(24px, calc(24px + 16  * (100vw - 390px) / 1050), 40px);
+  --fs-body:    clamp(16px, calc(16px + 2   * (100vw - 390px) / 1050), 18px);
+  --fs-ui: 14px;
+  --fs-label: 12px;
+
+  --gutter: clamp(16px, calc(16px + 8  * (100vw - 390px) / 1050), 24px);
+  --margin: clamp(16px, calc(16px + 64 * (100vw - 390px) / 1050), 80px);
+
+  --grain-opacity: .04;
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#141A26;
+    --surface:#1F2735;
+    --text:#FBF4E6;
+    --text-soft:#C9C2B3;
+    --line: rgba(251,244,230,.14);
+    --line-strong: rgba(251,244,230,.26);
+    --amber-text:#F5A524;
+    --coral-text:#FF8F80;
+    --sage-text:#A9D1B5;
+    --shadow: 0 14px 32px -14px rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#141A26;
+  --surface:#1F2735;
+  --text:#FBF4E6;
+  --text-soft:#C9C2B3;
+  --line: rgba(251,244,230,.14);
+  --line-strong: rgba(251,244,230,.26);
+  --amber-text:#F5A524;
+  --coral-text:#FF8F80;
+  --sage-text:#A9D1B5;
+  --shadow: 0 14px 32px -14px rgba(0,0,0,.55);
+}
+
+/* ---------- reset / base ---------- */
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ margin:0; }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-ui);
+  font-size:var(--fs-body);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  position:relative;
+  padding-inline: 0;
+}
+h1,h2,h3,p,figure{ margin:0; }
+h1,h2,h3{ text-wrap:balance; font-weight:400; }
+img{ max-width:100%; display:block; }
+a{ color:inherit; }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+input[type="range"]{ font:inherit; }
+svg{ display:block; overflow:visible; }
+::selection{ background:var(--amber); color:var(--ink); }
+
+button, a, [tabindex]{ -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, [tabindex]:focus-visible, input:focus-visible{
+  outline: 3px solid var(--amber);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.tap-target{ min-height:44px; min-width:44px; display:inline-flex; align-items:center; justify-content:center; }
+
+.visually-hidden{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+/* motion off by default; JS adds .motion-ok once it confirms the user allows it */
+.reveal{ opacity:1; }
+.motion-ok .reveal{ opacity:1; }
+@media (prefers-reduced-motion: no-preference){
+  .motion-ok [data-reveal]{ opacity:0; transform: translateY(14px); }
+  .motion-ok [data-reveal].is-in{
+    animation: reveal-in var(--dur-reveal) var(--ease) forwards;
+  }
+  @keyframes reveal-in{ to{ opacity:1; transform:none; } }
+}
+
+/* ---------- layout ---------- */
+.wrap{
+  width:100%;
+  max-width:1440px;
+  margin-inline:auto;
+  padding-inline: var(--margin);
+}
+.grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gutter);
+}
+@media (min-width: 760px){
+  .grid{ grid-template-columns: repeat(12, 1fr); }
+}
+section{ position:relative; padding-block: var(--sp-8) var(--sp-8); border-top:1px solid var(--line); }
+section:first-of-type{ border-top:0; }
+
+.eyebrow{
+  font-family:var(--font-ui); font-size:var(--fs-label); text-transform:uppercase;
+  letter-spacing:.08em; color:var(--text-soft); font-weight:600;
+}
+.h-display{ font-family:var(--font-display); font-size:var(--fs-display); line-height:.96; letter-spacing:-.01em; }
+.h1{ font-family:var(--font-display); font-size:var(--fs-h1); line-height:1.02; letter-spacing:-.01em; }
+.h2{ font-family:var(--font-display); font-size:var(--fs-h2); line-height:1.04; }
+.h3{ font-family:var(--font-display); font-size:var(--fs-h3); line-height:1.08; }
+.lede{ font-size: clamp(18px, calc(18px + 4 * (100vw - 390px)/1050), 22px); color:var(--text-soft); max-width:58ch; }
+.body-col{ max-width:62ch; }
+
+/* ---------- paper grain ---------- */
+.grain{
+  position:fixed; inset:0; z-index:2; pointer-events:none;
+  opacity: var(--grain-opacity); mix-blend-mode: multiply;
+}
+:root[data-theme="dark"] .grain, @media (prefers-color-scheme:dark){ .grain{ mix-blend-mode:overlay; } }
+
+/* ---------- slip header component ---------- */
+.slip{
+  background:var(--surface);
+  border-radius:var(--r-slip);
+  box-shadow:var(--shadow);
+  border:1px solid var(--line);
+  padding: var(--sp-4);
+}
+.slip-header{
+  display:flex; flex-wrap:wrap; gap: var(--sp-3) var(--sp-5);
+  padding-bottom: var(--sp-3); margin-bottom: var(--sp-3);
+  border-bottom:1px dashed var(--line-strong);
+}
+.slip-field{ display:flex; flex-direction:column; gap:2px; min-width:120px; }
+.slip-field b{
+  font-family:var(--font-ui); font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--text-soft);
+  font-weight:700;
+}
+.slip-field span{ font-family:var(--font-hand); font-size:22px; line-height:1.1; }
+.slip-ticks{ display:flex; flex-wrap:wrap; gap: var(--sp-3); align-items:center; }
+.tick{ display:flex; align-items:center; gap:6px; font-family:var(--font-hand); font-size:19px; }
+.tick svg{ width:16px; height:16px; flex:none; }
+.tick.on svg rect{ fill:none; }
+.tick.checked svg path{ opacity:1; }
+.tick svg path{ opacity:0; }
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding: 14px 24px; border-radius:var(--r-pill);
+  font-family:var(--font-ui); font-weight:600; font-size:var(--fs-ui);
+  transition: transform var(--dur-ui) var(--ease), background var(--dur-ui) var(--ease);
+  min-height:44px;
+}
+.btn-primary{ background:var(--amber); color:var(--ink); }
+.btn-outline{ background:transparent; border:1.5px solid var(--line-strong); color:var(--text); }
+.btn-ghost{ background:transparent; color:var(--text); }
+.btn:hover{ transform: translateY(-2px); }
+.icon-btn{ width:44px; height:44px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; border:1.5px solid var(--line-strong); }
+.icon-btn svg{ width:20px; height:20px; }
+
+/* ---------- top chrome ---------- */
+.topbar{
+  position:fixed; top:0; left:0; right:0; z-index:40;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: var(--sp-3) var(--margin);
+  pointer-events:none;
+}
+.topbar > *{ pointer-events:auto; }
+.brand-mini{ display:flex; align-items:center; gap:8px; text-decoration:none; }
+.brand-mini svg{ width:64px; height:22px; }
+.toggles{ display:flex; align-items:center; gap: var(--sp-2); }
+.tooltip-wrap{ position:relative; }
+.tooltip{
+  position:absolute; top:calc(100% + 8px); right:0; white-space:nowrap;
+  background:var(--ink); color:var(--paper); font-size:12px; padding:6px 10px; border-radius:6px;
+  opacity:0; transform:translateY(-4px); transition:opacity var(--dur-ui) var(--ease), transform var(--dur-ui) var(--ease);
+  pointer-events:none;
+}
+.tooltip-wrap:hover .tooltip, .tooltip-wrap:focus-within .tooltip{ opacity:1; transform:translateY(0); }
+
+.on-call{
+  font-variant-numeric: tabular-nums; font-family:var(--font-ui); font-weight:600; font-size:12px;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--text-soft);
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-pill);
+  padding:8px 14px; display:flex; align-items:center; gap:8px;
+}
+.on-call .dot{ width:7px; height:7px; border-radius:50%; background:var(--coral); flex:none; }
+.motion-ok .on-call .dot{ animation: dot-pulse 2s var(--ease) infinite; }
+@keyframes dot-pulse{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
+
+/* ---------- desktop chapter rail ---------- */
+.rail{
+  position:fixed; right: var(--sp-4); top:50%; transform:translateY(-50%); z-index:35;
+  display:none; flex-direction:column; gap:10px;
+}
+@media (min-width:1024px){ .rail{ display:flex; } }
+.rail button{
+  display:flex; align-items:center; gap:10px; justify-content:flex-end; min-height:44px;
+  font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--text-soft);
+  font-weight:600; padding:4px 2px;
+}
+.rail button .num{ font-variant-numeric:tabular-nums; }
+.rail button .bar{ width:18px; height:2px; background:var(--line-strong); transition:all var(--dur-ui) var(--ease); }
+.rail button[aria-current="true"]{ color:var(--text); }
+.rail button[aria-current="true"] .bar{ width:34px; background:var(--amber); }
+.rail button .label{
+  max-width:0; overflow:hidden; white-space:nowrap; opacity:0; transition:all var(--dur-ui) var(--ease);
+}
+.rail button:hover .label, .rail button:focus-visible .label{ max-width:140px; opacity:1; }
+
+/* ---------- mobile top bar / bottom sheet ---------- */
+.mtop{
+  position:fixed; top:0; left:0; right:0; z-index:45;
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding: 10px var(--sp-3);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom:1px solid var(--line);
+}
+@media (min-width:1024px){ .mtop{ display:none; } }
+.mtop-progress{ flex:1; height:3px; background:var(--line); border-radius:3px; overflow:hidden; }
+.mtop-progress i{ display:block; height:100%; width:0%; background:var(--amber); }
+.sheet-trigger{ display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
+.sheet-trigger svg{ width:14px; height:14px; }
+
+.sheet{
+  position:fixed; inset:0; z-index:60; display:flex; align-items:flex-end;
+  visibility:hidden; opacity:0; transition: opacity var(--dur-ui) var(--ease);
+}
+.sheet.open{ visibility:visible; opacity:1; }
+.sheet-backdrop{ position:absolute; inset:0; background:rgba(20,26,38,.45); }
+.sheet-panel{
+  position:relative; width:100%; background:var(--bg); border-radius:20px 20px 0 0;
+  padding: var(--sp-4) var(--sp-3) calc(var(--sp-4) + env(safe-area-inset-bottom,0px));
+  transform:translateY(16px); transition:transform var(--dur-slip) var(--ease);
+  max-height:70vh; overflow-y:auto;
+}
+.sheet.open .sheet-panel{ transform:translateY(0); }
+.sheet-panel button{ display:flex; width:100%; justify-content:space-between; padding:14px 4px; border-bottom:1px solid var(--line); font-weight:600; }
+
+/* ---------- marquee ---------- */
+.marquee{ overflow:hidden; border-block: 1px solid var(--line); padding-block: var(--sp-4); }
+.marquee-track{ display:flex; width:max-content; gap: var(--sp-6); }
+.motion-ok .marquee-track{ animation: marquee 22s linear infinite; }
+.marquee:hover .marquee-track, .marquee:focus-within .marquee-track{ animation-play-state:paused; }
+@keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+.marquee-item{ display:flex; align-items:center; gap: var(--sp-6); font-family:var(--font-display); font-size:clamp(28px,6vw,56px); white-space:nowrap; }
+.marquee-item svg{ width:22px; height:22px; flex:none; }
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero{
+  min-height:100vh; display:flex; flex-direction:column; justify-content:center; gap:var(--sp-6);
+  padding-top: calc(var(--sp-8) + 40px);
+  border-top:0;
+}
+.hero-mark{ width:min(60%, 520px); margin-inline:auto; }
+.anim-wordmark{ color:var(--text); width:100%; height:auto; overflow:visible; }
+.anim-wordmark .aw-bars{ transform:translateY(40px); opacity:0; }
+.anim-wordmark .aw-letters{ opacity:0; }
+.anim-wordmark .aw-o-ring{ stroke-dasharray:340; stroke-dashoffset:340; }
+.anim-wordmark .aw-o-tail{ opacity:0; }
+.anim-wordmark .aw-fold{ transform-origin:560px 30px; opacity:.55; }
+.motion-ok .anim-wordmark.play .aw-bars{ animation: aw-bars 900ms var(--ease) forwards; }
+.motion-ok .anim-wordmark.play .aw-letters{ animation: aw-fade 500ms var(--ease) 500ms forwards; }
+.motion-ok .anim-wordmark.play .aw-o-ring{ animation: aw-draw 900ms var(--ease) 1100ms forwards; }
+.motion-ok .anim-wordmark.play .aw-o-tail{ animation: aw-fade 300ms var(--ease) 1900ms forwards; }
+.motion-ok .anim-wordmark.play .aw-fold{ animation: aw-turn 900ms var(--ease) 2300ms forwards; }
+@keyframes aw-bars{ to{ transform:translateY(0); opacity:1; } }
+@keyframes aw-fade{ to{ opacity:1; } }
+@keyframes aw-draw{ to{ stroke-dashoffset:0; } }
+@keyframes aw-turn{ from{ transform:rotateY(90deg); opacity:0;} to{ transform:rotateY(0deg); opacity:.55;} }
+/* without motion-ok (reduced motion / no JS), the mark is simply shown complete */
+.anim-wordmark:not(.play) .aw-bars, .anim-wordmark:not(.play) .aw-letters{ opacity:1; transform:none; }
+.anim-wordmark:not(.play) .aw-o-ring{ stroke-dashoffset:0; }
+.anim-wordmark:not(.play) .aw-o-tail{ opacity:1; }
+.hero-copy{ text-align:center; display:flex; flex-direction:column; gap:var(--sp-3); align-items:center; }
+.hero-copy .lede{ max-width:46ch; }
+.hero-credit{ font-size:12px; color:var(--text-soft); letter-spacing:.04em; }
+.hero-actions{ display:flex; gap:var(--sp-3); align-items:center; flex-wrap:wrap; justify-content:center; margin-top:var(--sp-2); }
+
+.hero-slip-zone{ display:flex; justify-content:center; margin-top:var(--sp-6); }
+.hero-slip-pad{ position:relative; width:min(420px,90vw); }
+.pad-shadow-slip{ position:absolute; inset:6px -6px -10px 6px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-slip); }
+.hero-slip{
+  position:relative; touch-action:none; user-select:none; z-index:1;
+  transform: translateY(0) rotate(0deg);
+  transition: transform var(--dur-slip) var(--ease);
+}
+.hero-slip.dragging{ transition:none; }
+.hero-slip.torn{ transform: translateY(140%) rotate(8deg); opacity:0; }
+.hero-slip .hint{ display:block; text-align:center; font-family:var(--font-hand); font-size:18px; color:var(--text-soft); margin-top:var(--sp-2); }
+
+/* =========================================================
+   01 CHALLENGE
+   ========================================================= */
+.challenge-heads{ display:grid; grid-template-columns:1fr; gap:var(--sp-5); margin-top:var(--sp-6); }
+@media (min-width:760px){ .challenge-heads{ grid-template-columns:1fr 1fr; align-items:start; } }
+.cliche-grid{ display:grid; grid-template-columns:1fr; gap:var(--sp-4); margin-top:var(--sp-7); }
+@media (min-width:640px){ .cliche-grid{ grid-template-columns:repeat(3,1fr); } }
+.cliche-panel{
+  position:relative; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-panel);
+  padding:var(--sp-5); aspect-ratio:4/5; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden;
+}
+.cliche-panel svg.art{ width:100%; height:auto; max-height:160px; }
+.cliche-panel .caption{ font-size:14px; color:var(--text-soft); }
+.strike-note{
+  position:absolute; left:8%; top:8%; font-family:var(--font-hand); font-size:20px; color:var(--coral-text);
+  max-width:60%;
+}
+.strike-svg{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.strike-svg path{ stroke:var(--coral); stroke-width:6; fill:none; stroke-linecap:round; }
+.motion-ok .strike-svg path{
+  stroke-dasharray: 340; stroke-dashoffset:340;
+  transition: stroke-dashoffset 700ms var(--ease);
+}
+.motion-ok [data-reveal].is-in .strike-svg path{ stroke-dashoffset:0; }
+.motion-ok [data-reveal] .strike-note{ opacity:0; transition:opacity 300ms var(--ease) 500ms; }
+.motion-ok [data-reveal].is-in .strike-note{ opacity:1; }
+
+/* =========================================================
+   02 INSIGHT
+   ========================================================= */
+.pull-quote{
+  font-family:var(--font-display); font-size:clamp(24px,4vw,40px); line-height:1.25; max-width:34ch;
+  margin: var(--sp-6) auto 0; text-align:center;
+}
+.persona-pad{ display:grid; grid-template-columns:1fr; gap:var(--sp-6); margin-top:var(--sp-8); }
+@media (min-width:760px){ .persona-pad{ grid-template-columns:repeat(3,1fr); } }
+.persona{ perspective:1400px; }
+.persona-inner{
+  position:relative; width:100%; min-height:340px; transform-style:preserve-3d;
+  transition: transform 700ms var(--ease);
+}
+.persona.torn .persona-inner{ transform: rotateY(180deg); }
+.persona-face{
+  position:absolute; inset:0; backface-visibility:hidden; border-radius:var(--r-slip);
+  background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow);
+  padding:var(--sp-4); display:flex; flex-direction:column; gap:var(--sp-3);
+}
+.persona-face.back{ transform: rotateY(180deg); justify-content:center; }
+.persona-portrait{ width:100%; height:140px; }
+.persona-name{ font-family:var(--font-display); font-size:22px; }
+.persona-role{ font-size:13px; color:var(--text-soft); }
+.persona-quote{ font-family:var(--font-hand); font-size:22px; color:var(--text); }
+.persona-pain{ font-family:var(--font-display); font-size:clamp(20px,3vw,28px); text-align:center; padding:0 var(--sp-3); }
+.tear-btn{ align-self:flex-start; margin-top:auto; font-size:12px; text-decoration:underline; text-underline-offset:3px; color:var(--text-soft); font-weight:600; min-height:44px; }
+
+/* =========================================================
+   03 MAP
+   ========================================================= */
+.map-wrap{ margin-top:var(--sp-7); }
+.quadrant{
+  position:relative; aspect-ratio: 16/11; max-width:900px; margin-inline:auto;
+  border:1px solid var(--line-strong); border-radius:var(--r-panel); background:var(--surface); overflow:hidden;
+}
+.quadrant .axis-line{ position:absolute; background:var(--line-strong); }
+.quadrant .axis-v{ left:50%; top:0; bottom:0; width:1px; }
+.quadrant .axis-h{ top:50%; left:0; right:0; height:1px; }
+.quadrant .axis-label{ position:absolute; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-soft); font-weight:700; }
+.axis-label.left{ left:12px; top:50%; transform:translateY(-50%); }
+.axis-label.right{ right:12px; top:50%; transform:translateY(-50%); text-align:right; }
+.axis-label.top{ top:12px; left:50%; transform:translateX(-50%); }
+.axis-label.bottom{ bottom:12px; left:50%; transform:translateX(-50%); }
+.map-hatch{ position:absolute; top:0; right:0; width:50%; height:50%; opacity:0; }
+.motion-ok [data-reveal].is-in .map-hatch{ opacity:1; transition:opacity 500ms var(--ease) 500ms; }
+[data-reveal].is-in .map-hatch{ opacity:1; }
+.map-fold{ position:absolute; top:8%; right:12%; width:52px; height:52px; }
+.motion-ok .map-fold{ transform:translateY(-160px); opacity:0; transition: transform 640ms var(--ease), opacity 300ms var(--ease); }
+.motion-ok [data-reveal].is-in .map-fold{ transform:translateY(0); opacity:1; }
+.map-dot{
+  position:absolute; width:44px; height:44px; margin:-22px; border-radius:50%; background:transparent;
+  border:0; cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.map-dot::after{
+  content:""; width:16px; height:16px; border-radius:50%; background:var(--ink); border:2px solid var(--bg);
+}
+:root[data-theme="dark"] .map-dot::after{ background:var(--text); }
+.map-dot[aria-label="Hullo"]::after{ background:var(--amber); }
+.map-dot .dot-tip{
+  position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%);
+  width:200px; background:var(--ink); color:var(--paper); font-size:13px; padding:10px 12px; border-radius:8px;
+  opacity:0; pointer-events:none; transition:opacity var(--dur-ui) var(--ease); z-index:5;
+}
+.map-dot:hover .dot-tip, .map-dot:focus-visible .dot-tip, .map-dot.tip-open .dot-tip{ opacity:1; }
+.map-caption{ text-align:center; margin-top:var(--sp-4); color:var(--text-soft); font-size:14px; }
+.map-cards{ display:none; }
+@media (max-width:759px){
+  .map-dot .dot-tip{ display:none; }
+  .map-cards{ display:flex; flex-direction:column; gap:var(--sp-2); margin-top:var(--sp-4); }
+  .map-cards .card{ background:var(--surface); border:1px solid var(--line); border-radius:var(--r-panel); padding:var(--sp-3); font-size:14px; }
+  .map-cards .card b{ display:block; font-size:13px; margin-bottom:2px; }
+}
+
+/* =========================================================
+   04 STRATEGY
+   ========================================================= */
+.strategy-slip{ max-width:840px; margin: var(--sp-7) auto 0; padding: var(--sp-6); }
+.strategy-row{ display:grid; grid-template-columns:1fr; gap:var(--sp-4); padding-block:var(--sp-3); border-bottom:1px dashed var(--line); }
+.strategy-row:last-of-type{ border-bottom:0; }
+@media (min-width:640px){ .strategy-row{ grid-template-columns: 160px 1fr; } }
+.strategy-row b{ font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-soft); }
+.strategy-tagline{ font-family:var(--font-display); font-size:var(--fs-display); text-align:center; margin-block:var(--sp-4); }
+.personality-tags{ display:flex; flex-wrap:wrap; gap:8px; }
+.tag{ font-size:12px; font-weight:700; padding:6px 12px; border-radius:var(--r-pill); border:1px solid var(--line-strong); }
+.stamps{ display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); margin-top:var(--sp-4); }
+@media (min-width:640px){ .stamps{ grid-template-columns:repeat(4,1fr); } }
+.stamp{
+  border:2px solid var(--ink-soft); border-radius:10px; padding:14px 10px; text-align:center;
+  font-size:12px; font-weight:700; letter-spacing:.02em; transform:scale(1); opacity:1;
+  color:var(--text);
+}
+:root[data-theme="dark"] .stamp{ border-color: var(--text-soft); }
+.motion-ok .stamp{ opacity:0; transform:scale(1.3); transition:opacity 300ms var(--ease), transform 480ms var(--ease); mix-blend-mode:multiply; }
+:root[data-theme="dark"] .motion-ok .stamp{ mix-blend-mode:screen; }
+.motion-ok [data-reveal].is-in .stamp{ opacity:1; transform:scale(1); }
+.motion-ok [data-reveal].is-in .stamp:nth-child(1){ transition-delay:0ms; }
+.motion-ok [data-reveal].is-in .stamp:nth-child(2){ transition-delay:120ms; }
+.motion-ok [data-reveal].is-in .stamp:nth-child(3){ transition-delay:240ms; }
+.motion-ok [data-reveal].is-in .stamp:nth-child(4){ transition-delay:360ms; }
+
+/* =========================================================
+   05 THE MARK
+   ========================================================= */
+.directions-grid{ display:grid; grid-template-columns:1fr; gap:var(--sp-4); margin-top:var(--sp-7); }
+@media (min-width:640px){ .directions-grid{ grid-template-columns:repeat(3,1fr); } }
+.direction-card{ border:1px solid var(--line); border-radius:var(--r-panel); padding:var(--sp-4); background:var(--surface); }
+.direction-card.chosen{ border-color:var(--amber); box-shadow:0 0 0 2px var(--amber) inset; }
+.direction-card svg{ width:100%; height:90px; margin-bottom:var(--sp-3); }
+.direction-card h4{ font-family:var(--font-display); font-size:20px; margin-bottom:4px; }
+.direction-card p{ font-size:13px; color:var(--text-soft); }
+.chosen-pill{ display:inline-block; margin-top:8px; font-size:10px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--amber-text); }
+
+.construction{ margin-top:var(--sp-8); text-align:center; }
+.construction svg{ max-width:520px; width:100%; height:auto; margin-inline:auto; }
+.construction-callouts{ display:grid; grid-template-columns:repeat(2,1fr); gap:var(--sp-3); max-width:520px; margin: var(--sp-4) auto 0; text-align:left; }
+@media(min-width:640px){ .construction-callouts{ grid-template-columns:repeat(4,1fr); } }
+.callout{ font-size:12px; color:var(--text-soft); }
+.callout b{ color:var(--text); display:block; font-size:13px; }
+
+.resizer{ margin-top:var(--sp-8); }
+.resizer-frame-wrap{ display:flex; justify-content:center; }
+.resizer-frame{
+  position:relative; resize:horizontal; overflow:hidden; min-width:64px; max-width:100%; width:340px;
+  border:1px dashed var(--line-strong); border-radius:8px; padding:24px;
+  display:flex; align-items:center; justify-content:center; background:var(--surface);
+}
+.resizer-frame svg{ width:100%; height:auto; }
+.resizer-handle{ position:absolute; right:4px; bottom:4px; width:14px; height:14px; opacity:.5; pointer-events:none; }
+.resizer-mobile-slider{ display:none; width:100%; max-width:340px; margin: var(--sp-3) auto 0; }
+@media (max-width:759px){
+  .resizer-frame{ resize:none; width:260px !important; }
+  .resizer-mobile-slider{ display:block; }
+}
+.resizer-controls{ display:flex; justify-content:center; gap:var(--sp-2); margin-top:var(--sp-3); flex-wrap:wrap; }
+.resizer-label{ text-align:center; margin-top:10px; font-size:12px; color:var(--text-soft); text-transform:uppercase; letter-spacing:.06em; font-weight:700; }
+
+.misuse-grid{ display:grid; grid-template-columns:1fr; gap:var(--sp-3); margin-top:var(--sp-8); }
+@media(min-width:640px){ .misuse-grid{ grid-template-columns:repeat(3,1fr); } }
+.misuse-card{ border:1px solid var(--line); border-radius:var(--r-panel); padding:var(--sp-4); text-align:center; position:relative; }
+.misuse-card svg{ width:100%; height:80px; }
+.misuse-card p{ font-size:12px; color:var(--text-soft); margin-top:8px; }
+.misuse-card .x-mark{ position:absolute; top:10px; right:10px; width:20px; height:20px; }
+
+.replay-row{ display:flex; justify-content:center; margin-top:var(--sp-6); }
+
+/* =========================================================
+   06 SYSTEM
+   ========================================================= */
+.swatch-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:var(--sp-3); margin-top:var(--sp-7); }
+@media(min-width:640px){ .swatch-grid{ grid-template-columns:repeat(5,1fr); } }
+.swatch{ border-radius:var(--r-panel); overflow:hidden; border:1px solid var(--line); text-align:left; width:100%; }
+.swatch .chip{ height:96px; width:100%; }
+.swatch .meta{ padding:10px 12px; background:var(--surface); }
+.swatch .meta b{ display:block; font-size:13px; }
+.swatch .meta span{ display:block; font-size:11px; color:var(--text-soft); font-variant-numeric:tabular-nums; }
+.copied-flag{ font-size:10px; color:var(--sage-text); font-weight:700; opacity:0; transition:opacity var(--dur-ui); }
+.copied-flag.show{ opacity:1; }
+
+.type-specimen{ margin-top:var(--sp-8); display:flex; flex-direction:column; gap:var(--sp-4); }
+.type-row{ display:flex; align-items:baseline; gap:var(--sp-4); border-bottom:1px solid var(--line); padding-bottom:var(--sp-3); flex-wrap:wrap; }
+.type-row .label{ width:140px; font-size:12px; color:var(--text-soft); text-transform:uppercase; letter-spacing:.06em; }
+.type-row .sample.display{ font-family:var(--font-display); font-size:clamp(28px,4vw,44px); }
+.type-row .sample.ui{ font-family:var(--font-ui); font-size:20px; font-weight:600; }
+.type-row .sample.hand{ font-family:var(--font-hand); font-size:28px; }
+
+.icon-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:var(--sp-3); margin-top:var(--sp-7); }
+@media(min-width:520px){ .icon-grid{ grid-template-columns:repeat(6,1fr); } }
+@media(min-width:900px){ .icon-grid{ grid-template-columns:repeat(10,1fr); } }
+.icon-tile{
+  aspect-ratio:1; border:1px solid var(--line); border-radius:10px; display:flex; align-items:center; justify-content:center;
+  background:var(--surface);
+}
+.icon-tile svg{ width:24px; height:24px; }
+.icon-tile svg path,.icon-tile svg circle,.icon-tile svg rect,.icon-tile svg line{
+  stroke:var(--text); stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round;
+}
+.motion-ok .icon-tile svg [data-draw]{ stroke-dasharray:60; stroke-dashoffset:60; transition:stroke-dashoffset 500ms var(--ease); }
+.motion-ok .icon-tile:hover svg [data-draw], .motion-ok .icon-tile:focus-within svg [data-draw]{ stroke-dashoffset:0; }
+
+.illustration-row{ margin-top:var(--sp-8); }
+.illustration-row svg{ width:100%; height:auto; max-height:220px; }
+
+/* =========================================================
+   07 THE SLIP
+   ========================================================= */
+.segctrl{
+  display:inline-flex; gap:4px; padding:4px; background:var(--surface); border-radius:var(--r-pill); border:1px solid var(--line);
+  margin: var(--sp-6) auto 0; justify-content:center;
+}
+.segctrl-row{ display:flex; justify-content:center; }
+.segctrl button{
+  padding:12px 18px; border-radius:var(--r-pill); font-size:13px; font-weight:700; min-height:44px;
+  color:var(--text-soft);
+}
+.segctrl button[aria-selected="true"]{ background:var(--bg); color:var(--text); box-shadow:var(--shadow); }
+
+.call-slip-stage{ position:relative; max-width:520px; margin: var(--sp-6) auto 0; min-height:340px; }
+.call-slip{
+  position:absolute; inset:0; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-slip);
+  box-shadow:var(--shadow); padding:var(--sp-4); display:flex; flex-direction:column; gap:var(--sp-3);
+  transition: transform var(--dur-slip) var(--ease), opacity var(--dur-slip) var(--ease);
+}
+.call-slip[data-state="emergency"]{ border-color:var(--coral); }
+.call-slip .ring-pulse{ position:absolute; inset:-6px; border-radius:calc(var(--r-slip) + 6px); border:2px solid var(--coral); opacity:0; pointer-events:none; }
+.motion-ok .ring-pulse.pulse{ animation:ring-once 700ms var(--ease); }
+@keyframes ring-once{ 0%{opacity:1; transform:scale(1);} 100%{opacity:0; transform:scale(1.06);} }
+.call-row{ display:flex; justify-content:space-between; gap:var(--sp-3); font-size:14px; }
+.call-row b{ font-weight:600; }
+.call-note{ font-family:var(--font-hand); font-size:22px; margin-top:auto; padding-top:var(--sp-2); border-top:1px dashed var(--line); }
+.call-callback{ align-self:flex-start; }
+.call-badge{ align-self:flex-start; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; padding:5px 10px; border-radius:var(--r-pill); }
+.call-badge.new{ background:var(--amber); color:var(--ink); }
+.call-badge.booked{ background:var(--sage); color:var(--ink); }
+.call-badge.emergency{ background:var(--coral); color:#fff; }
+
+/* =========================================================
+   08 SOUND AND MOTION
+   ========================================================= */
+.sonic-demo{
+  display:grid; grid-template-columns:1fr; gap:var(--sp-6); margin-top:var(--sp-7); align-items:center;
+}
+@media(min-width:900px){ .sonic-demo{ grid-template-columns:1.2fr .8fr; } }
+.staff-card{ background:var(--surface); border:1px solid var(--line); border-radius:var(--r-panel); padding:var(--sp-4); }
+.staff-card svg{ width:100%; height:auto; }
+.meters{ display:flex; gap:6px; align-items:flex-end; height:48px; margin-top:var(--sp-3); }
+.meters i{ display:block; width:6px; background:var(--amber); border-radius:2px; height:6%; transition:height 90ms linear; }
+.ring-demo{ display:flex; flex-direction:column; align-items:center; gap:var(--sp-3); }
+.ring-demo-icon{ width:72px; height:72px; }
+.motion-ok .ring-demo-icon.playing{ animation: ring-pickup-settle 720ms var(--ease); }
+@keyframes ring-pickup-settle{
+  0%{ transform:translateY(0) rotate(0); }
+  15%{ transform:translateY(-4px) rotate(-6deg); }
+  40%{ transform:translateY(6px) rotate(4deg); }
+  100%{ transform:translateY(0) rotate(0); }
+}
+
+.tone-grid{ display:grid; grid-template-columns:1fr; gap:var(--sp-3); margin-top:var(--sp-8); }
+@media(min-width:640px){ .tone-grid{ grid-template-columns:repeat(5,1fr); } }
+.tone-btn{
+  display:flex; flex-direction:column; align-items:center; gap:8px; padding:var(--sp-3); border:1px solid var(--line);
+  border-radius:var(--r-panel); background:var(--surface); text-align:center;
+}
+.tone-btn svg{ width:26px; height:26px; }
+.tone-btn span{ font-size:12px; font-weight:600; }
+
+.voice-grid{ display:grid; grid-template-columns:1fr; gap:var(--sp-4); margin-top:var(--sp-8); }
+@media(min-width:640px){ .voice-grid{ grid-template-columns:repeat(3,1fr); } }
+.voice-card{ background:var(--surface); border:1px solid var(--line); border-radius:var(--r-panel); padding:var(--sp-4); display:flex; flex-direction:column; gap:var(--sp-3); }
+.voice-name{ font-family:var(--font-display); font-size:22px; }
+.voice-desc{ font-size:12px; color:var(--text-soft); }
+.disclosure-line{ font-family:var(--font-hand); font-size:18px; color:var(--text-soft); border-top:1px dashed var(--line); padding-top:var(--sp-2); }
+
+/* =========================================================
+   09 IN THE WORLD
+   ========================================================= */
+.world-block{ margin-top:var(--sp-9); }
+.world-block:first-of-type{ margin-top:var(--sp-7); }
+.world-label{ display:flex; align-items:baseline; gap:12px; margin-bottom:var(--sp-4); }
+.world-label .letter{ font-family:var(--font-display); font-size:28px; color:var(--amber-text); }
+
+.reel-frame{
+  position:relative; aspect-ratio:16/9; max-width:760px; margin-inline:auto; border-radius:var(--r-panel);
+  overflow:hidden; border:1px solid var(--line); background:var(--ink);
+}
+.reel-scene{ position:absolute; inset:0; opacity:0; transition:opacity 260ms var(--ease); }
+.reel-scene.active{ opacity:1; }
+.reel-scene svg{ width:100%; height:100%; }
+.reel-controls{ display:flex; align-items:center; gap:var(--sp-3); max-width:760px; margin: var(--sp-3) auto 0; }
+.reel-time{ font-variant-numeric:tabular-nums; font-size:12px; color:var(--text-soft); width:80px; }
+.reel-scrub{ flex:1; }
+.reel-scenes-label{ text-align:center; font-size:12px; color:var(--text-soft); margin-top:6px; }
+
+.phone-carousel{ display:flex; gap:var(--sp-4); overflow-x:auto; scroll-snap-type:x mandatory; padding:var(--sp-2) 0 var(--sp-4); scrollbar-width:thin; }
+.phone-carousel::-webkit-scrollbar{ height:8px; }
+.phone-card{ scroll-snap-align:center; flex:none; width:220px; }
+.phone-frame{ aspect-ratio:9/19; border-radius:24px; border:6px solid var(--ink); background:var(--surface); overflow:hidden; position:relative; }
+:root[data-theme="dark"] .phone-frame{ border-color:var(--text-soft); }
+.phone-frame svg{ width:100%; height:100%; }
+.phone-caption{ text-align:center; font-size:12px; margin-top:8px; color:var(--text-soft); }
+.carousel-nav{ display:flex; justify-content:center; gap:var(--sp-2); margin-top:var(--sp-2); }
+
+.web-mock{ border:1px solid var(--line); border-radius:var(--r-panel); overflow:hidden; background:var(--surface); max-width:900px; margin-inline:auto; }
+.web-mock .chrome-bar{ display:flex; gap:6px; padding:10px 14px; border-bottom:1px solid var(--line); }
+.web-mock .chrome-bar span{ width:9px; height:9px; border-radius:50%; background:var(--line-strong); }
+.web-mock .hero-mock{ padding:var(--sp-6); text-align:center; }
+.web-mock .hero-mock h4{ font-family:var(--font-display); font-size:clamp(24px,4vw,40px); }
+.pricing-table{ display:grid; grid-template-columns:1fr; gap:var(--sp-3); padding:var(--sp-4); }
+@media(min-width:640px){ .pricing-table{ grid-template-columns:repeat(3,1fr); } }
+.price-card{ border:1px solid var(--line); border-radius:var(--r-panel); padding:var(--sp-4); text-align:center; }
+.price-card.pro{ border-color:var(--amber); box-shadow:0 0 0 2px var(--amber) inset; }
+.price-card .amount{ font-family:var(--font-display); font-size:36px; margin:8px 0; }
+.price-card .amount span{ font-size:14px; color:var(--text-soft); }
+.integrations-line{ text-align:center; font-size:13px; color:var(--text-soft); padding: 0 var(--sp-4) var(--sp-4); }
+
+.campaign-switcher{ display:flex; flex-direction:column; align-items:center; gap:var(--sp-4); }
+.campaign-frame{ position:relative; width:min(560px,90vw); aspect-ratio:4/3; }
+.campaign-item{ position:absolute; inset:0; opacity:0; transition:opacity 480ms var(--ease); }
+.campaign-item.active{ opacity:1; }
+.campaign-item svg{ width:100%; height:100%; }
+.campaign-nav{ display:flex; gap:var(--sp-2); flex-wrap:wrap; justify-content:center; }
+.campaign-nav button{ font-size:12px; padding:12px 14px; min-height:44px; border-radius:var(--r-pill); border:1px solid var(--line-strong); }
+.campaign-nav button[aria-selected="true"]{ background:var(--amber); color:var(--ink); border-color:var(--amber); }
+.ruler{ width:min(560px,90vw); display:flex; justify-content:space-between; font-size:10px; color:var(--text-soft); border-top:1px solid var(--line-strong); padding-top:6px; }
+
+.decal-grid{ display:grid; grid-template-columns:1fr; gap:var(--sp-4); }
+@media(min-width:640px){ .decal-grid{ grid-template-columns:repeat(3,1fr); } }
+.decal-card{ background:var(--surface); border:1px solid var(--line); border-radius:var(--r-panel); padding:var(--sp-4); text-align:center; }
+.decal-card svg{ width:100%; height:120px; }
+.decal-card p{ font-size:12px; color:var(--text-soft); margin-top:8px; }
+
+.swag-grid{ display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-4); }
+@media(min-width:640px){ .swag-grid{ grid-template-columns:repeat(3,1fr); } }
+.swag-card{ background:var(--surface); border:1px solid var(--line); border-radius:var(--r-panel); padding:var(--sp-4); text-align:center; }
+.swag-card svg{ width:100%; height:130px; }
+.swag-card p{ font-size:12px; color:var(--text-soft); margin-top:8px; }
+.sticky-peel{ cursor:pointer; }
+.sticky-peel .peel-flap{ transform-origin: 20% 20%; transition:transform 420ms var(--ease); }
+.sticky-peel.peeled .peel-flap{ transform: rotate(-24deg) translate(-10px,-6px); }
+
+/* =========================================================
+   CODA
+   ========================================================= */
+.coda{ text-align:center; }
+.targets{ display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-4); margin-top:var(--sp-7); }
+@media(min-width:640px){ .targets{ grid-template-columns:repeat(4,1fr); } }
+.target{ background:var(--surface); border:1px solid var(--line); border-radius:var(--r-panel); padding:var(--sp-4); }
+.target .num{ font-family:var(--font-display); font-size:clamp(30px,4vw,48px); font-variant-numeric:tabular-nums; }
+.target .lbl{ font-size:12px; color:var(--text-soft); margin-top:6px; }
+.target .concept{ font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--amber-text); font-weight:800; margin-top:8px; }
+.reflection{ max-width:56ch; margin: var(--sp-7) auto; font-family:var(--font-display); font-size:clamp(20px,3vw,28px); line-height:1.4; }
+.coda-slip{ max-width:360px; margin: var(--sp-6) auto 0; position:relative; }
+.call-ended-stamp{
+  position:absolute; top:8px; right:8px; border:3px solid var(--coral-text); color:var(--coral-text);
+  padding:6px 12px; font-weight:800; font-size:12px; letter-spacing:.06em; transform:rotate(-8deg); border-radius:6px;
+  opacity:0; transition:opacity 300ms var(--ease);
+}
+.call-ended-stamp.show{ opacity:1; }
+footer{ text-align:center; padding: var(--sp-7) 0 calc(var(--sp-7) + env(safe-area-inset-bottom,0px)); font-size:12px; color:var(--text-soft); max-width:60ch; margin-inline:auto; }
+footer .wrap{ padding-block:0; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+}
+</style>
+
+<div class="grain" aria-hidden="true">
+  <svg width="100%" height="100%" preserveAspectRatio="none">
+    <filter id="grainFilter"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter>
+    <rect width="100%" height="100%" filter="url(#grainFilter)"/>
+  </svg>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+  <!-- shared wordmark symbol: two bars (l,l) + open-o ring with small speech-mark notch (not a C — notch is only ~26deg, at lower-right, with a small tail) -->
+  <symbol id="sym-wordmark" viewBox="0 0 600 200">
+    <!-- h -->
+    <path d="M20 20 L20 180 M20 110 C20 90 35 78 55 78 C75 78 90 90 90 110 L90 180" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- u -->
+    <path d="M130 80 L130 140 C130 165 150 180 172 180 C194 180 214 165 214 140 L214 80 M214 80 L214 180" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- l l : two bars, second 20% shorter -->
+    <path d="M254 20 L254 180" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+    <path d="M304 52 L304 180" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+    <!-- o : ring with a small speech-mark gap (not a C) -->
+    <path d="M 452 60 A 60 60 0 1 1 397.7 154.2" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+    <path d="M397.7 154.2 L 414 168 L 388 172 Z" fill="currentColor"/>
+  </symbol>
+
+  <!-- compact monogram: h + open-o only -->
+  <symbol id="sym-compact" viewBox="0 0 260 200">
+    <path d="M20 20 L20 180 M20 110 C20 90 35 78 55 78 C75 78 90 90 90 110 L90 180" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 232 60 A 60 60 0 1 1 177.7 154.2" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+    <path d="M177.7 154.2 L194 168 L168 172 Z" fill="currentColor"/>
+  </symbol>
+
+  <!-- pure symbol: two bars w/ folded corner -->
+  <symbol id="sym-mark" viewBox="0 0 160 200">
+    <path d="M40 20 L40 180" fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round"/>
+    <path d="M110 56 L110 180" fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round"/>
+    <path d="M27 7 L53 7 L53 33 Z" fill="currentColor" opacity=".55"/>
+  </symbol>
+
+  <!-- fold symbol (ringing icon / map fold-drop) -->
+  <symbol id="sym-fold" viewBox="0 0 100 100">
+    <path d="M20 20 H70 L80 30 V80 H20 Z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M70 20 V30 H80 Z" fill="currentColor"/>
+    <line x1="32" y1="46" x2="66" y2="46" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+    <line x1="32" y1="60" x2="58" y2="60" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- generic tick-box (checked / unchecked toggled via class) -->
+  <symbol id="sym-tick" viewBox="0 0 24 24">
+    <rect x="2" y="2" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M6 12.5 L10.5 17 L19 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- icon set: 24px grid, 2px stroke, rounded line -->
+  <symbol id="ic-wrench" viewBox="0 0 24 24"><path data-draw d="M14.5 6.5a4 4 0 0 0-5.4 4.9L3 17.5 5.5 20l6.1-6.1a4 4 0 0 0 4.9-5.4l-2.3 2.3-2-2 2.3-2.3z"/></symbol>
+  <symbol id="ic-tooth" viewBox="0 0 24 24"><path data-draw d="M8 3c-2.5 0-4 2-4 4.5 0 3 1.5 4 1.5 8 0 2 .8 3.5 2 3.5s1.7-2.4 2-4c.3-1.6.9-1.6 1.2 0 .3 1.6 1 4 2.2 4s2-1.5 2-3.5c0-4 1.5-5 1.5-8C16.4 5 14.9 3 12.4 3c-1 0-1.7.5-2.4.5S9 3 8 3Z"/></symbol>
+  <symbol id="ic-paw" viewBox="0 0 24 24"><path data-draw d="M12 14c-3 0-5.5 2-5.5 4.5S8.3 21 10 20s1.3-1.5 2-1.5S13 20 14.7 21s3.5-.1 3.5-2.5S15 14 12 14Z"/><circle data-draw cx="7" cy="9" r="1.6"/><circle data-draw cx="11" cy="6.5" r="1.6"/><circle data-draw cx="15" cy="6.5" r="1.6"/><circle data-draw cx="19" cy="9" r="1.6"/></symbol>
+  <symbol id="ic-scissors" viewBox="0 0 24 24"><path data-draw d="M9.5 9.5 20 3M9.5 14.5 20 21"/><circle data-draw cx="6.5" cy="7" r="2.3"/><circle data-draw cx="6.5" cy="17" r="2.3"/><path data-draw d="M8.3 8.6 15 14"/></symbol>
+  <symbol id="ic-car" viewBox="0 0 24 24"><path data-draw d="M4 16V12l2-5h12l2 5v4M4 16h16M4 16v2h2v-2M18 16v2h2v-2"/><circle data-draw cx="8" cy="16" r="1.6"/><circle data-draw cx="16" cy="16" r="1.6"/></symbol>
+  <symbol id="ic-drop" viewBox="0 0 24 24"><path data-draw d="M12 3c4 5 6 8.2 6 11a6 6 0 1 1-12 0c0-2.8 2-6 6-11Z"/></symbol>
+  <symbol id="ic-flame" viewBox="0 0 24 24"><path data-draw d="M12 3c1 3-3 4-3 7a3 3 0 0 0 6 0c0-1-1-1.5-1-1.5.6 1 1.6 2 1.6 4A5 5 0 0 1 7 12.5C7 8 12 6 12 3Z"/></symbol>
+  <symbol id="ic-snow" viewBox="0 0 24 24"><path data-draw d="M12 2v20M4 7l16 10M20 7 4 17M2 12h20"/></symbol>
+  <symbol id="ic-bolt" viewBox="0 0 24 24"><path data-draw d="M13 2 4 14h6l-1 8 9-12h-6z"/></symbol>
+  <symbol id="ic-broom" viewBox="0 0 24 24"><path data-draw d="M14 3 5 21M14 3l6 4-8 2M6 18l3 3M9 15l3 3"/></symbol>
+  <symbol id="ic-hammer" viewBox="0 0 24 24"><path data-draw d="M14 6 20 12l-2.5 2.5L11.5 8.5M14 6l-2.5-2.5L8 7l2.5 2.5M4 20l7-7"/></symbol>
+  <symbol id="ic-key" viewBox="0 0 24 24"><circle data-draw cx="8" cy="8" r="4"/><path data-draw d="M11 11l9 9M16 16l2-2M19 19l2-2"/></symbol>
+  <symbol id="ic-shield" viewBox="0 0 24 24"><path data-draw d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6z"/></symbol>
+  <symbol id="ic-leaf" viewBox="0 0 24 24"><path data-draw d="M20 4C10 4 4 10 4 18c8 0 14-6 14-14ZM4 18c4-2 8-5 12-10"/></symbol>
+  <symbol id="ic-roller" viewBox="0 0 24 24"><path data-draw d="M4 5h10v6H4zM9 11v4M6 19h6v-4"/></symbol>
+  <symbol id="ic-ruler" viewBox="0 0 24 24"><path data-draw d="M3 15 15 3l6 6L9 21zM9 9l2 2M12 6l2 2M15 3l2 2"/></symbol>
+  <symbol id="ic-clipboard" viewBox="0 0 24 24"><path data-draw d="M8 4h8v3H8zM6 6h12v16H6zM9 12h6M9 16h6"/></symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24"><path data-draw d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4c0 1-1 2-2 2C10.5 21 3 13.5 3 6c0-1 1-2 2-2Z"/></symbol>
+  <symbol id="ic-calendar" viewBox="0 0 24 24"><path data-draw d="M4 5h16v16H4zM4 9h16M8 3v4M16 3v4M8 13h2m3 0h2m-7 4h2m3 0h2"/></symbol>
+  <symbol id="ic-van" viewBox="0 0 24 24"><path data-draw d="M2 16V9h11l4 4h5v3M2 16h18M2 16v-1M6 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></symbol>
+</defs>
+</svg>
+
+<noscript><style>.rail,.mtop{ display:none !important; } [data-reveal]{ opacity:1 !important; transform:none !important; }</style></noscript>
+
+<header class="topbar">
+  <a href="#hero" class="brand-mini" aria-label="Hullo — back to top">
+    <svg viewBox="0 0 600 200" style="color:var(--text)"><use href="#sym-wordmark"/></svg>
+  </a>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="on-call" id="callTimerDesktop" aria-live="off"><span class="dot" aria-hidden="true"></span><span id="callTimerText">ON CALL 00:00</span></div>
+    <div class="toggles">
+      <div class="tooltip-wrap">
+        <button class="icon-btn tap-target" id="themeToggle" aria-pressed="false" aria-label="Switch to the dark theme.">
+          <svg id="themeIcon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <span class="tooltip" id="themeTooltip">Switch to the dark theme.</span>
+      </div>
+      <div class="tooltip-wrap">
+        <button class="icon-btn tap-target" id="soundToggle" aria-pressed="false" aria-label="Turn sound on.">
+          <svg id="soundIcon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path id="soundWave" d="M17 9a4 4 0 0 1 0 6" opacity=".35"/></svg>
+        </button>
+        <span class="tooltip" id="soundTooltip">Turn sound on.</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="rail" aria-label="Chapters">
+  <button data-goto="hero" aria-current="true"><span class="bar" aria-hidden="true"></span><span class="label">Hero</span></button>
+  <button data-goto="ch01"><span class="bar" aria-hidden="true"></span><span class="num">01</span><span class="label">Challenge</span></button>
+  <button data-goto="ch02"><span class="bar" aria-hidden="true"></span><span class="num">02</span><span class="label">Insight</span></button>
+  <button data-goto="ch03"><span class="bar" aria-hidden="true"></span><span class="num">03</span><span class="label">Map</span></button>
+  <button data-goto="ch04"><span class="bar" aria-hidden="true"></span><span class="num">04</span><span class="label">Strategy</span></button>
+  <button data-goto="ch05"><span class="bar" aria-hidden="true"></span><span class="num">05</span><span class="label">Mark</span></button>
+  <button data-goto="ch06"><span class="bar" aria-hidden="true"></span><span class="num">06</span><span class="label">System</span></button>
+  <button data-goto="ch07"><span class="bar" aria-hidden="true"></span><span class="num">07</span><span class="label">Slip</span></button>
+  <button data-goto="ch08"><span class="bar" aria-hidden="true"></span><span class="num">08</span><span class="label">Sound</span></button>
+  <button data-goto="ch09"><span class="bar" aria-hidden="true"></span><span class="num">09</span><span class="label">World</span></button>
+  <button data-goto="hero"><span class="bar" aria-hidden="true"></span><span class="label">All work</span></button>
+</nav>
+
+<div class="mtop">
+  <button class="sheet-trigger tap-target" id="sheetTrigger" aria-haspopup="dialog" aria-expanded="false">
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    Chapters
+  </button>
+  <div class="mtop-progress" aria-hidden="true"><i id="mtopProgress"></i></div>
+  <div class="on-call" id="callTimerMobile" style="font-size:10px;padding:6px 10px;"><span class="dot" aria-hidden="true"></span><span id="callTimerTextM">00:00</span></div>
+</div>
+
+<div class="sheet" id="chapterSheet" role="dialog" aria-modal="true" aria-label="Chapters">
+  <div class="sheet-backdrop" id="sheetBackdrop"></div>
+  <div class="sheet-panel">
+    <button data-goto="hero">Hero</button>
+    <button data-goto="ch01">01 · Challenge</button>
+    <button data-goto="ch02">02 · Insight</button>
+    <button data-goto="ch03">03 · Map</button>
+    <button data-goto="ch04">04 · Strategy</button>
+    <button data-goto="ch05">05 · Mark</button>
+    <button data-goto="ch06">06 · System</button>
+    <button data-goto="ch07">07 · Slip</button>
+    <button data-goto="ch08">08 · Sound</button>
+    <button data-goto="ch09">09 · World</button>
+    <button data-goto="coda">Coda</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="wrap">
+    <div class="hero-mark">
+      <svg class="anim-wordmark" id="heroWordmark" viewBox="0 0 600 200" role="img" aria-label="Hullo">
+        <g class="aw-bars"><path d="M254 20 L254 180" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/><path d="M304 52 L304 180" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/></g>
+        <g class="aw-letters">
+          <path d="M20 20 L20 180 M20 110 C20 90 35 78 55 78 C75 78 90 90 90 110 L90 180" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M130 80 L130 140 C130 165 150 180 172 180 C194 180 214 165 214 140 L214 80 M214 80 L214 180" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <g class="aw-o">
+          <path class="aw-o-ring" d="M 452 60 A 60 60 0 1 1 397.7 154.2" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+          <path class="aw-o-tail" d="M397.7 154.2 L 414 168 L 388 172 Z" fill="currentColor"/>
+        </g>
+        <g class="aw-fold"><path d="M546 16 H570 L576 22 V44 H546 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M570 16 V22 H576 Z" fill="currentColor"/></g>
+      </svg>
+    </div>
+    <div class="hero-copy">
+      <p class="h3" style="font-family:var(--font-ui);font-weight:600;">hullo — a complete brand identity</p>
+      <h1 class="h1" style="max-width:16ch;">Picks up every call. Writes down every job.</h1>
+      <p class="lede">An invented AI receptionist for local service businesses that answers every call, books the job and writes it up.</p>
+      <p class="hero-credit">Role: Brand and Creative Direction. Type: Self-initiated concept. Year: 2026. Tools: Claude Design.</p>
+      <div class="hero-actions">
+        <div class="tooltip-wrap">
+          <button class="btn btn-outline tap-target magnetic" id="playSonicHero" aria-label="Hear the sonic logo. Two seconds.">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>
+            Play sonic logo
+          </button>
+          <span class="tooltip">Hear it. 2 seconds.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-slip-zone">
+      <div class="hero-slip-pad">
+        <div class="pad-shadow-slip" aria-hidden="true"></div>
+        <div class="hero-slip slip" id="heroSlip" tabindex="0" role="button" aria-label="Tear off the slip to start the call. Drag down or press Enter.">
+          <div class="slip-header">
+            <div class="slip-field"><b>To</b><span>You</span></div>
+            <div class="slip-field"><b>From</b><span>Dana Rivera</span></div>
+            <div class="slip-field"><b>Re</b><span>Someone picked up.</span></div>
+            <div class="slip-field"><b>Time</b><span>8:02 a.m.</span></div>
+          </div>
+          <div class="slip-ticks">
+            <span class="tick checked"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Telephoned</span>
+            <span class="tick"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Please call</span>
+            <span class="tick"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Urgent</span>
+            <span class="tick checked"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Will call again</span>
+          </div>
+          <p style="font-family:var(--font-hand);font-size:20px;">Drag the slip down, or press Enter, to start the call.</p>
+        </div>
+        <span class="hint">↓ scroll to read the case study</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 01 CHALLENGE ===================== -->
+<section id="ch01">
+  <div class="wrap">
+    <div class="slip">
+      <div class="slip-header">
+        <div class="slip-field"><b>To</b><span>You</span></div>
+        <div class="slip-field"><b>From</b><span>A caller after 6 p.m.</span></div>
+        <div class="slip-field"><b>Re</b><span>Nobody answered.</span></div>
+        <div class="slip-field"><b>Time</b><span>8:17 a.m.</span></div>
+      </div>
+      <div class="slip-ticks">
+        <span class="tick checked"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Please call</span>
+        <span class="tick checked"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Urgent</span>
+      </div>
+    </div>
+
+    <div class="challenge-heads">
+      <h2 class="h1">AI sounds like sci-fi. Owners want a front desk.</h2>
+      <p class="lede">Every unanswered call is a customer dialing the next name on the list. Hullo had to feel like the best front-desk hire you ever made, and say plainly that it is AI.</p>
+    </div>
+
+    <div class="cliche-grid">
+      <article class="cliche-panel" data-reveal>
+        <svg class="art" viewBox="0 0 200 140" aria-label="A gradient panel drawn as ink-line and grey cross-hatching, standing in for the violet gradients common to AI branding" role="img">
+          <rect x="10" y="10" width="180" height="120" rx="10" fill="none" stroke="var(--ink-soft)" stroke-width="2"/>
+          <g stroke="var(--ink-soft)" stroke-width="1">
+            <line x1="20" y1="20" x2="100" y2="120"/><line x1="35" y1="20" x2="115" y2="120"/>
+            <line x1="50" y1="20" x2="130" y2="120"/><line x1="65" y1="20" x2="145" y2="120"/>
+            <line x1="80" y1="20" x2="160" y2="120"/><line x1="95" y1="20" x2="175" y2="120"/>
+            <line x1="110" y1="20" x2="180" y2="105"/><line x1="125" y1="20" x2="180" y2="80"/>
+          </g>
+        </svg>
+        <svg class="strike-svg" viewBox="0 0 200 140" aria-hidden="true"><path d="M18 100 C60 40 140 40 182 100"/></svg>
+        <span class="strike-note">Same purple as every other AI.</span>
+        <p class="caption">Category cliché 01</p>
+      </article>
+      <article class="cliche-panel" data-reveal>
+        <svg class="art" viewBox="0 0 200 140" aria-label="A sparkle icon drawn in ink line, crossed through" role="img">
+          <path d="M100 30 L112 65 L148 70 L118 92 L128 128 L100 106 L72 128 L82 92 L52 70 L88 65 Z" fill="none" stroke="var(--ink-soft)" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        <svg class="strike-svg" viewBox="0 0 200 140" aria-hidden="true"><path d="M20 30 C90 110 110 30 180 110"/></svg>
+        <span class="strike-note">Sparkles promise a trick, not service.</span>
+        <p class="caption">Category cliché 02</p>
+      </article>
+      <article class="cliche-panel" data-reveal>
+        <svg class="art" viewBox="0 0 200 140" aria-label="A glowing orb avatar drawn in ink line, crossed through" role="img">
+          <circle cx="100" cy="70" r="42" fill="none" stroke="var(--ink-soft)" stroke-width="2"/>
+          <circle cx="100" cy="70" r="52" fill="none" stroke="var(--ink-soft)" stroke-width="1" stroke-dasharray="2 6"/>
+        </svg>
+        <svg class="strike-svg" viewBox="0 0 200 140" aria-hidden="true"><path d="M25 110 C80 30 130 120 178 35"/></svg>
+        <span class="strike-note">A glowing orb cannot say hello.</span>
+        <p class="caption">Category cliché 03</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 02 INSIGHT ===================== -->
+<section id="ch02">
+  <div class="wrap">
+    <div class="slip">
+      <div class="slip-header">
+        <div class="slip-field"><b>To</b><span>You</span></div>
+        <div class="slip-field"><b>From</b><span>Dana Rivera</span></div>
+        <div class="slip-field"><b>Re</b><span>Just write it down.</span></div>
+        <div class="slip-field"><b>Time</b><span>9:41 a.m.</span></div>
+      </div>
+      <div class="slip-ticks">
+        <span class="tick checked"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Telephoned</span>
+      </div>
+    </div>
+    <h2 class="h2" style="text-align:center;margin-top:var(--sp-6);">Owners don't want AI. They want the slip.</h2>
+    <p class="pull-quote">"Owners don't want AI; they want proof that someone reliable took the call and wrote it down."</p>
+
+    <div class="persona-pad">
+      <div class="persona" data-persona>
+        <div class="persona-inner">
+          <div class="persona-face">
+            <svg class="persona-portrait" viewBox="0 0 200 120" aria-label="Line portrait of Dana Rivera" role="img">
+              <circle cx="70" cy="55" r="34" fill="none" stroke="var(--text)" stroke-width="2"/>
+              <path d="M40 100c6-20 22-30 30-30s24 10 30 30" fill="none" stroke="var(--text)" stroke-width="2"/>
+              <path d="M42 40c8-14 44-14 52 3" fill="none" stroke="var(--amber-text)" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <p class="persona-name">Dana Rivera, 44</p>
+            <p class="persona-role">Owner, Rivera Plumbing · 9 staff</p>
+            <p class="persona-quote">"I'm under a sink when the phone rings. Someone has to answer."</p>
+            <button class="tear-btn" data-tear>Tear off ↴</button>
+          </div>
+          <div class="persona-face back">
+            <p class="persona-pain">Someone has to answer.</p>
+          </div>
+        </div>
+      </div>
+      <div class="persona" data-persona>
+        <div class="persona-inner">
+          <div class="persona-face">
+            <svg class="persona-portrait" viewBox="0 0 200 120" aria-label="Line portrait of Dr. Priya Nair" role="img">
+              <circle cx="70" cy="55" r="34" fill="none" stroke="var(--text)" stroke-width="2"/>
+              <path d="M40 100c6-20 22-30 30-30s24 10 30 30" fill="none" stroke="var(--text)" stroke-width="2"/>
+              <path d="M40 36c14-10 48-6 54 8" fill="none" stroke="var(--amber-text)" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <p class="persona-name">Dr. Priya Nair, 38</p>
+            <p class="persona-role">Two-location vet clinic</p>
+            <p class="persona-quote">"At 8 a.m. the phones win. A sick dog can't wait."</p>
+            <button class="tear-btn" data-tear>Tear off ↴</button>
+          </div>
+          <div class="persona-face back">
+            <p class="persona-pain">A sick dog can't wait.</p>
+          </div>
+        </div>
+      </div>
+      <div class="persona" data-persona>
+        <div class="persona-inner">
+          <div class="persona-face">
+            <svg class="persona-portrait" viewBox="0 0 200 120" aria-label="Line portrait of Marcus Hale" role="img">
+              <circle cx="70" cy="55" r="34" fill="none" stroke="var(--text)" stroke-width="2"/>
+              <path d="M40 100c6-20 22-30 30-30s24 10 30 30" fill="none" stroke="var(--text)" stroke-width="2"/>
+              <path d="M38 46c10-18 52-18 62 1" fill="none" stroke="var(--amber-text)" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <p class="persona-name">Marcus Hale, 52</p>
+            <p class="persona-role">Franchise operations lead</p>
+            <p class="persona-quote">"Fourteen locations. I want one voice and one screen."</p>
+            <button class="tear-btn" data-tear>Tear off ↴</button>
+          </div>
+          <div class="persona-face back">
+            <p class="persona-pain">One voice, one screen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" role="presentation">
+  <div class="marquee-track">
+    <span class="marquee-item">Always answered. <svg viewBox="0 0 100 100" style="color:var(--amber-text)" aria-hidden="true"><use href="#sym-fold"/></svg></span>
+    <span class="marquee-item">Always answered. <svg viewBox="0 0 100 100" style="color:var(--amber-text)" aria-hidden="true"><use href="#sym-fold"/></svg></span>
+    <span class="marquee-item">Always answered. <svg viewBox="0 0 100 100" style="color:var(--amber-text)" aria-hidden="true"><use href="#sym-fold"/></svg></span>
+    <span class="marquee-item">Always answered. <svg viewBox="0 0 100 100" style="color:var(--amber-text)" aria-hidden="true"><use href="#sym-fold"/></svg></span>
+    <span class="marquee-item">Always answered. <svg viewBox="0 0 100 100" style="color:var(--amber-text)" aria-hidden="true"><use href="#sym-fold"/></svg></span>
+    <span class="marquee-item">Always answered. <svg viewBox="0 0 100 100" style="color:var(--amber-text)" aria-hidden="true"><use href="#sym-fold"/></svg></span>
+  </div>
+</div>
+
+<!-- ===================== 03 MAP ===================== -->
+<section id="ch03">
+  <div class="wrap">
+    <div class="slip">
+      <div class="slip-header">
+        <div class="slip-field"><b>To</b><span>You</span></div>
+        <div class="slip-field"><b>From</b><span>Marcus Hale</span></div>
+        <div class="slip-field"><b>Re</b><span>Who else sounds human?</span></div>
+        <div class="slip-field"><b>Time</b><span>10:22 a.m.</span></div>
+      </div>
+      <div class="slip-ticks">
+        <span class="tick checked"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Will call again</span>
+      </div>
+    </div>
+    <h2 class="h2" style="text-align:center;margin-top:var(--sp-6);">One quadrant sat empty.</h2>
+
+    <div class="map-wrap" data-reveal>
+      <div class="quadrant">
+        <div class="axis-line axis-v" aria-hidden="true"></div>
+        <div class="axis-line axis-h" aria-hidden="true"></div>
+        <span class="axis-label left">Machine feel</span>
+        <span class="axis-label right">Human feel</span>
+        <span class="axis-label top">Enterprise</span>
+        <span class="axis-label bottom">Local</span>
+        <svg class="map-hatch" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <g stroke="var(--amber-text)" stroke-width="1.2">
+            <line x1="0" y1="100" x2="100" y2="0"/><line x1="15" y1="100" x2="100" y2="15"/>
+            <line x1="30" y1="100" x2="100" y2="30"/><line x1="45" y1="100" x2="100" y2="45"/>
+            <line x1="60" y1="100" x2="100" y2="60"/><line x1="75" y1="100" x2="100" y2="75"/>
+            <line x1="0" y1="100" x2="0" y2="85"/>
+          </g>
+        </svg>
+        <svg class="map-fold" viewBox="0 0 100 100" style="color:var(--amber-text)" aria-hidden="true"><use href="#sym-fold"/></svg>
+
+        <button class="map-dot" style="left:22%; top:78%;" aria-label="Big-tech voice assistants">
+          <span class="dot-tip" role="tooltip">Natural speech, built for everyone, not your shop.</span>
+        </button>
+        <button class="map-dot" style="left:38%; top:58%;" aria-label="AI-native voice startups">
+          <span class="dot-tip" role="tooltip">One shared look: violet gradients, sparkles, orbs.</span>
+        </button>
+        <button class="map-dot" style="left:74%; top:68%;" aria-label="Human answering services">
+          <span class="dot-tip" role="tooltip">Warm, but costlier per minute, and they don't book work.</span>
+        </button>
+        <button class="map-dot" style="left:80%; top:22%;" aria-label="Hullo">
+          <span class="dot-tip" role="tooltip">Human feel, local scale, in your business's own voice.</span>
+        </button>
+      </div>
+      <p class="map-caption">Hullo sits alone where human feel meets local scale.</p>
+      <div class="map-cards">
+        <div class="card"><b>Big-tech voice assistants</b>Natural speech, built for everyone, not your shop.</div>
+        <div class="card"><b>AI-native voice startups</b>One shared look: violet gradients, sparkles, orbs.</div>
+        <div class="card"><b>Human answering services</b>Warm, but costlier per minute, and they don't book work.</div>
+        <div class="card"><b>Hullo</b>Human feel, local scale, in your business's own voice.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 04 STRATEGY ===================== -->
+<section id="ch04">
+  <div class="wrap">
+    <div class="slip">
+      <div class="slip-header">
+        <div class="slip-field"><b>To</b><span>You</span></div>
+        <div class="slip-field"><b>From</b><span>Dr. Priya Nair</span></div>
+        <div class="slip-field"><b>Re</b><span>Say who is answering.</span></div>
+        <div class="slip-field"><b>Time</b><span>11:05 a.m.</span></div>
+      </div>
+      <div class="slip-ticks">
+        <span class="tick checked"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Please call</span>
+      </div>
+    </div>
+    <h2 class="h2" style="text-align:center;margin-top:var(--sp-6);">A strategy short enough for a slip.</h2>
+
+    <div class="strategy-slip slip" data-reveal>
+      <div class="strategy-row"><b>Purpose</b><p>Give every local business the reach of a big one.</p></div>
+      <div class="strategy-row"><b>Positioning</b><p>For owners of local service businesses who lose work to missed calls, Hullo is the AI receptionist that answers every call in your business's own voice and books the job.</p></div>
+      <div class="strategy-row"><b>Brand idea</b><p>Front-desk hospitality, machine-grade reliability.</p></div>
+      <div class="strategy-row"><b>Tagline</b><p class="strategy-tagline" style="grid-column:1/-1;">Always answered.</p></div>
+      <div class="strategy-row"><b>Personality</b>
+        <div class="personality-tags">
+          <span class="tag">Warm</span><span class="tag">Capable</span><span class="tag">Plain-spoken</span>
+          <span class="tag">Unflappable</span><span class="tag">Neighborly</span>
+          <span class="tag" style="border-color:var(--amber);color:var(--amber-text);">Caregiver + a streak of Everyman</span>
+        </div>
+      </div>
+      <div class="stamps">
+        <div class="stamp">Always says it's an assistant.</div>
+        <div class="stamp">Callers can always reach a human.</div>
+        <div class="stamp">Recording follows consent rules.</div>
+        <div class="stamp">Owners own their data.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 05 THE MARK ===================== -->
+<section id="ch05">
+  <div class="wrap">
+    <div class="slip">
+      <div class="slip-header">
+        <div class="slip-field"><b>To</b><span>You</span></div>
+        <div class="slip-field"><b>From</b><span>The sign painter</span></div>
+        <div class="slip-field"><b>Re</b><span>Is the fold final?</span></div>
+        <div class="slip-field"><b>Time</b><span>12:30 p.m.</span></div>
+      </div>
+      <div class="slip-ticks">
+        <span class="tick checked"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Urgent</span>
+      </div>
+    </div>
+    <h2 class="h2" style="text-align:center;margin-top:var(--sp-6);">Three directions, one mark.</h2>
+
+    <div class="directions-grid">
+      <div class="direction-card">
+        <svg viewBox="0 0 200 100" aria-hidden="true"><use href="#sym-mark" style="color:var(--text)" x="60" width="80" height="100"/></svg>
+        <h4>A · Two Bars</h4>
+        <p>The double-l redrawn as two sound bars — a call, mid-ring.</p>
+      </div>
+      <div class="direction-card">
+        <svg viewBox="0 0 200 100" aria-hidden="true">
+          <path d="M100 20 L150 20 L160 30 V80 H100 Z" fill="none" stroke="var(--text)" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M150 20 V30 H160 Z" fill="var(--text)"/>
+        </svg>
+        <h4>B · Corner Fold</h4>
+        <p>The slip's own dog-eared corner, used as a dot and a terminal.</p>
+      </div>
+      <div class="direction-card">
+        <svg viewBox="0 0 200 100" aria-hidden="true">
+          <path d="M 130 25 A 30 30 0 1 1 106 68" fill="none" stroke="var(--text)" stroke-width="10" stroke-linecap="round"/>
+          <path d="M106 68 L116 76 L100 80 Z" fill="var(--text)"/>
+        </svg>
+        <h4>C · Open O</h4>
+        <p>The o left open — a small gap standing in for a speech mark.</p>
+      </div>
+      <div class="direction-card chosen" style="grid-column:1/-1;display:flex;align-items:center;gap:var(--sp-4);">
+        <svg viewBox="0 0 160 200" style="width:80px;height:100px;flex:none;margin:0;color:var(--amber-text)" aria-hidden="true"><use href="#sym-mark"/></svg>
+        <div>
+          <h4>Chosen: A, with B's fold as symbol and C's open o</h4>
+          <p>Two bars carry the mark; the fold becomes a small symbol detail; the open o lands inside the wordmark itself.</p>
+          <span class="chosen-pill">Final direction</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="construction" data-reveal>
+      <svg viewBox="0 0 600 240" aria-label="Construction grid for the hullo wordmark" role="img">
+        <g stroke="var(--line-strong)" stroke-width="1" fill="none">
+          <rect x="10" y="10" width="580" height="220"/>
+          <line x1="10" y1="120" x2="590" y2="120" stroke-dasharray="4 4"/>
+        </g>
+        <g style="color:var(--text)" transform="translate(0,20) scale(0.95)"><use href="#sym-wordmark"/></g>
+        <g stroke="var(--amber-text)" stroke-width="1.2" fill="none">
+          <circle cx="55" cy="118" r="6"/>
+          <circle cx="279" cy="118" r="6"/>
+          <circle cx="424" cy="140" r="6"/>
+          <circle cx="447" cy="42" r="6"/>
+        </g>
+      </svg>
+      <div class="construction-callouts">
+        <div class="callout"><b>1 · Wordmark</b>Lowercase, single weight, tight lockup.</div>
+        <div class="callout"><b>2 · Double-l</b>Second bar drawn 20% shorter.</div>
+        <div class="callout"><b>3 · Open o</b>A small gap reads as a speech mark, not a broken ring.</div>
+        <div class="callout"><b>4 · Fold</b>Reserved for the symbol mark only.</div>
+      </div>
+    </div>
+
+    <div class="resizer" data-reveal>
+      <p style="text-align:center;color:var(--text-soft);font-size:13px;margin-bottom:var(--sp-3);">Drag the frame's edge narrower — or use the buttons — to see the suite adapt.</p>
+      <div class="resizer-frame-wrap">
+        <div class="resizer-frame" id="resizerFrame" tabindex="0" role="slider" aria-label="Resize the frame to preview the logo suite" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1">
+          <svg id="resizerSvg" viewBox="0 0 600 200" style="color:var(--text)"><use href="#sym-wordmark"/></svg>
+        </div>
+      </div>
+      <p class="resizer-label" id="resizerLabel">Full lockup</p>
+      <div class="resizer-controls">
+        <button class="btn btn-outline tap-target" id="resizerPrev" aria-label="Wider frame">← Wider</button>
+        <button class="btn btn-outline tap-target" id="resizerNext" aria-label="Narrower frame">Narrower →</button>
+      </div>
+      <input type="range" id="resizerSlider" min="0" max="4" step="1" value="0" class="resizer-mobile-slider" aria-label="Step through the logo suite">
+    </div>
+
+    <div class="misuse-grid" data-reveal>
+      <div class="misuse-card">
+        <svg viewBox="0 0 200 100" aria-hidden="true">
+          <defs><linearGradient id="badGrad" x1="0" x2="1"><stop offset="0" stop-color="#8a7bd8"/><stop offset="1" stop-color="#5b3fae"/></linearGradient></defs>
+          <rect width="200" height="100" fill="url(#badGrad)"/>
+          <g style="color:#fff"><use href="#sym-compact" x="50" y="0" width="100" height="100"/></g>
+        </svg>
+        <svg class="x-mark" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19" stroke="var(--coral)" stroke-width="3" stroke-linecap="round"/></svg>
+        <p>On a violet gradient</p>
+      </div>
+      <div class="misuse-card">
+        <svg viewBox="0 0 200 100" aria-hidden="true"><g style="color:var(--text)" transform="translate(30,10) scale(0.9,1.6)"><use href="#sym-mark"/></g></svg>
+        <svg class="x-mark" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19" stroke="var(--coral)" stroke-width="3" stroke-linecap="round"/></svg>
+        <p>Stretched, skewed or redrawn double-l</p>
+      </div>
+      <div class="misuse-card">
+        <svg viewBox="0 0 200 100" aria-hidden="true">
+          <rect x="0" y="0" width="200" height="100" fill="none" stroke="var(--line-strong)" stroke-dasharray="3 3"/>
+          <g style="color:var(--text)" transform="translate(70,-10) scale(0.7)"><use href="#sym-mark"/></g>
+          <text x="10" y="20" font-size="10" fill="var(--text-soft)">clear space</text>
+        </svg>
+        <svg class="x-mark" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19" stroke="var(--coral)" stroke-width="3" stroke-linecap="round"/></svg>
+        <p>Crowded fold — keep one fold-width clear</p>
+      </div>
+    </div>
+
+    <div class="replay-row" style="flex-direction:column;gap:var(--sp-3);">
+      <svg class="anim-wordmark" id="replayWordmark" viewBox="0 0 600 200" role="img" aria-label="Hullo" style="max-width:280px;">
+        <g class="aw-bars"><path d="M254 20 L254 180" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/><path d="M304 52 L304 180" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/></g>
+        <g class="aw-letters">
+          <path d="M20 20 L20 180 M20 110 C20 90 35 78 55 78 C75 78 90 90 90 110 L90 180" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M130 80 L130 140 C130 165 150 180 172 180 C194 180 214 165 214 140 L214 80 M214 80 L214 180" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <g class="aw-o">
+          <path class="aw-o-ring" d="M 452 60 A 60 60 0 1 1 397.7 154.2" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+          <path class="aw-o-tail" d="M397.7 154.2 L 414 168 L 388 172 Z" fill="currentColor"/>
+        </g>
+        <g class="aw-fold"><path d="M546 16 H570 L576 22 V44 H546 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M570 16 V22 H576 Z" fill="currentColor"/></g>
+      </svg>
+      <button class="btn btn-primary tap-target magnetic" id="replayLogo">Replay logo animation</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 06 SYSTEM ===================== -->
+<section id="ch06">
+  <div class="wrap">
+    <div class="slip">
+      <div class="slip-header">
+        <div class="slip-field"><b>To</b><span>You</span></div>
+        <div class="slip-field"><b>From</b><span>Marcus Hale</span></div>
+        <div class="slip-field"><b>Re</b><span>One kit for 14 locations.</span></div>
+        <div class="slip-field"><b>Time</b><span>1:48 p.m.</span></div>
+      </div>
+      <div class="slip-ticks">
+        <span class="tick checked"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Telephoned</span>
+      </div>
+    </div>
+    <h2 class="h2" style="text-align:center;margin-top:var(--sp-6);">Five colors, 40 icons, and no violet.</h2>
+
+    <div class="swatch-grid">
+      <button class="swatch" data-hex="#FBF4E6" aria-label="Copy Paper hex code">
+        <span class="chip" style="background:#FBF4E6;border-bottom:1px solid var(--line)"></span>
+        <span class="meta"><b>Paper</b><span>#FBF4E6</span><span class="copied-flag">Copied.</span></span>
+      </button>
+      <button class="swatch" data-hex="#F5A524" aria-label="Copy Porch Light hex code">
+        <span class="chip" style="background:#F5A524"></span>
+        <span class="meta"><b>Porch Light</b><span>#F5A524</span><span class="copied-flag">Copied.</span></span>
+      </button>
+      <button class="swatch" data-hex="#141A26" aria-label="Copy Ink hex code">
+        <span class="chip" style="background:#141A26"></span>
+        <span class="meta"><b>Ink</b><span>#141A26</span><span class="copied-flag">Copied.</span></span>
+      </button>
+      <button class="swatch" data-hex="#F26B5B" aria-label="Copy Slip Coral hex code">
+        <span class="chip" style="background:#F26B5B"></span>
+        <span class="meta"><b>Slip Coral</b><span>#F26B5B</span><span class="copied-flag">Copied.</span></span>
+      </button>
+      <button class="swatch" data-hex="#8DB89A" aria-label="Copy Sage hex code">
+        <span class="chip" style="background:#8DB89A"></span>
+        <span class="meta"><b>Sage</b><span>#8DB89A</span><span class="copied-flag">Copied.</span></span>
+      </button>
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--text-soft);margin-top:var(--sp-2);">Porch Light: buttons, links, next action. Slip Coral: alerts and slips only. Sage: booked, saved, done.</p>
+
+    <div class="type-specimen" data-reveal>
+      <div class="type-row"><span class="label">Instrument Serif</span><span class="sample display">Always answered.</span></div>
+      <div class="type-row"><span class="label">Instrument Sans</span><span class="sample ui">Front-desk hospitality, machine-grade reliability.</span></div>
+      <div class="type-row"><span class="label">Caveat</span><span class="sample hand">Just write it down.</span></div>
+    </div>
+
+    <div class="icon-grid">
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Wrench" role="img"><use href="#ic-wrench"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Tooth" role="img"><use href="#ic-tooth"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Paw" role="img"><use href="#ic-paw"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Scissors" role="img"><use href="#ic-scissors"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Car" role="img"><use href="#ic-car"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Water drop" role="img"><use href="#ic-drop"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Flame" role="img"><use href="#ic-flame"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Snowflake" role="img"><use href="#ic-snow"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Bolt" role="img"><use href="#ic-bolt"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Broom" role="img"><use href="#ic-broom"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Hammer" role="img"><use href="#ic-hammer"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Key" role="img"><use href="#ic-key"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Shield" role="img"><use href="#ic-shield"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Leaf" role="img"><use href="#ic-leaf"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Paint roller" role="img"><use href="#ic-roller"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Ruler" role="img"><use href="#ic-ruler"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Clipboard" role="img"><use href="#ic-clipboard"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Phone" role="img"><use href="#ic-phone"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Calendar" role="img"><use href="#ic-calendar"/></svg></div>
+      <div class="icon-tile" tabindex="0"><svg viewBox="0 0 24 24" aria-label="Van" role="img"><use href="#ic-van"/></svg></div>
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--text-soft);margin-top:var(--sp-3);">A 20-icon working set from the 40-icon library — 24px grid, 2px stroke. Hover or focus an icon to draw its strokes.</p>
+
+    <div class="illustration-row" data-reveal>
+      <svg viewBox="0 0 800 180" aria-label="Single-weight line illustration of a storefront and service van with an amber accent" role="img">
+        <g fill="none" stroke="var(--text)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <rect x="40" y="60" width="180" height="100" />
+          <path d="M40 60 L130 20 L220 60" />
+          <rect x="80" y="100" width="40" height="60" />
+          <rect x="140" y="90" width="30" height="30" />
+          <rect x="260" y="90" width="200" height="70" rx="6"/>
+          <circle cx="300" cy="168" r="12"/><circle cx="420" cy="168" r="12"/>
+          <path d="M460 100 L500 100 L520 130 L520 150 L460 150 Z"/>
+        </g>
+        <path d="M130 40 v14 M123 47 h14" stroke="var(--amber-text)" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 07 THE SLIP ===================== -->
+<section id="ch07">
+  <div class="wrap">
+    <div class="slip">
+      <div class="slip-header">
+        <div class="slip-field"><b>To</b><span>You</span></div>
+        <div class="slip-field"><b>From</b><span>Renee Okafor</span></div>
+        <div class="slip-field"><b>Re</b><span>Water heater, no hot water.</span></div>
+        <div class="slip-field"><b>Time</b><span>2:14 p.m.</span></div>
+      </div>
+      <div class="slip-ticks">
+        <span class="tick checked"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Please call</span>
+      </div>
+    </div>
+    <h2 class="h2" style="text-align:center;margin-top:var(--sp-6);">The call, written down the way a person would.</h2>
+    <p class="lede" style="text-align:center;margin-inline:auto;">A modern While You Were Out card: who called, what they need, how urgent, when it's booked, with a one-tap call-back.</p>
+
+    <div class="segctrl-row">
+      <div class="segctrl" role="tablist" aria-label="Call states">
+        <button role="tab" aria-selected="true" data-state="new">New call</button>
+        <button role="tab" aria-selected="false" data-state="booked">Booked</button>
+        <button role="tab" aria-selected="false" data-state="emergency">Emergency</button>
+      </div>
+    </div>
+
+    <div class="call-slip-stage" data-reveal>
+      <div class="call-slip" data-state="new" style="opacity:1;">
+        <span class="ring-pulse" aria-hidden="true"></span>
+        <span class="call-badge new">New call</span>
+        <div class="call-row"><span>Caller</span><b>Renee Okafor</b></div>
+        <div class="call-row"><span>Needs</span><b>Water heater, no hot water</b></div>
+        <div class="call-row"><span>Called</span><b>2:14 p.m. · Today</b></div>
+        <p class="call-note">"Home till 6. Call, don't text."</p>
+        <button class="btn btn-outline call-callback tap-target">Call back</button>
+      </div>
+      <div class="call-slip" data-state="booked" style="opacity:0;pointer-events:none;">
+        <span class="call-badge booked">Booked</span>
+        <div class="call-row"><span>Caller</span><b>Luis Ferreira</b></div>
+        <div class="call-row"><span>Job</span><b>Furnace tune-up</b></div>
+        <div class="call-row"><span>Booked</span><b>Thursday 9:30 a.m. · Routine</b></div>
+        <p class="call-note">"Side gate unlocked. Dog is friendly."</p>
+        <button class="btn btn-outline call-callback tap-target">Call back</button>
+      </div>
+      <div class="call-slip" data-state="emergency" style="opacity:0;pointer-events:none;">
+        <span class="ring-pulse" aria-hidden="true"></span>
+        <span class="call-badge emergency">Emergency</span>
+        <div class="call-row"><span>Caller</span><b>Mei Zhao</b></div>
+        <div class="call-row"><span>Issue</span><b>Burst pipe, basement flooding</b></div>
+        <div class="call-row"><span>Called</span><b>11:52 p.m. · Routed to owner's cell</b></div>
+        <p class="call-note">"Main shut off. Owner called back 11:53."</p>
+        <button class="btn btn-outline call-callback tap-target">Call back</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 08 SOUND AND MOTION ===================== -->
+<section id="ch08">
+  <div class="wrap">
+    <div class="slip">
+      <div class="slip-header">
+        <div class="slip-field"><b>To</b><span>You</span></div>
+        <div class="slip-field"><b>From</b><span>A caller with a burst pipe</span></div>
+        <div class="slip-field"><b>Re</b><span>Was that a person?</span></div>
+        <div class="slip-field"><b>Time</b><span>3:52 p.m.</span></div>
+      </div>
+      <div class="slip-ticks">
+        <span class="tick checked"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Urgent</span>
+      </div>
+    </div>
+    <h2 class="h2" style="text-align:center;margin-top:var(--sp-6);">Callers hear the brand before anyone sees it.</h2>
+    <p class="lede" style="text-align:center;margin-inline:auto;">Callers never see a Hullo screen. They hear Hullo.</p>
+
+    <div class="sonic-demo" data-reveal>
+      <div class="staff-card">
+        <svg viewBox="0 0 400 140" id="staffSvg" aria-label="Two-note staff notation for the sonic logo, with a sweeping playhead" role="img">
+          <line x1="20" y1="50" x2="380" y2="50" stroke="var(--line-strong)"/>
+          <line x1="20" y1="80" x2="380" y2="80" stroke="var(--line-strong)"/>
+          <circle cx="120" cy="80" r="9" fill="var(--text)"/>
+          <line x1="129" y1="80" x2="129" y2="30" stroke="var(--text)" stroke-width="2"/>
+          <text x="112" y="100" font-size="11" fill="var(--text-soft)">G4</text>
+          <circle cx="260" cy="50" r="9" fill="var(--amber-text)"/>
+          <line x1="269" y1="50" x2="269" y2="10" stroke="var(--amber-text)" stroke-width="2"/>
+          <text x="252" y="100" font-size="11" fill="var(--text-soft)">C5</text>
+          <line id="playhead" x1="20" y1="10" x2="20" y2="110" stroke="var(--coral)" stroke-width="2" opacity="0"/>
+        </svg>
+        <div class="meters" aria-hidden="true">
+          <i data-bar></i><i data-bar></i><i data-bar></i><i data-bar></i><i data-bar></i><i data-bar></i><i data-bar></i><i data-bar></i>
+          <i data-bar></i><i data-bar></i><i data-bar></i><i data-bar></i><i data-bar></i><i data-bar></i><i data-bar></i><i data-bar></i>
+        </div>
+        <div style="display:flex;justify-content:center;margin-top:var(--sp-3);">
+          <button class="btn btn-primary tap-target magnetic" id="playSonic08">Play sonic logo</button>
+        </div>
+      </div>
+      <div class="ring-demo">
+        <svg class="ring-demo-icon" id="ringDemoIcon" viewBox="0 0 100 100" style="color:var(--amber-text)" aria-hidden="true"><use href="#sym-fold"/></svg>
+        <p style="font-size:13px;color:var(--text-soft);text-align:center;">Ring, pick up, settle — the motion pattern behind every transition on this page.</p>
+        <button class="btn btn-outline tap-target magnetic" id="ringDemoBtn">Run the demo</button>
+      </div>
+    </div>
+
+    <h3 class="h3" style="text-align:center;margin-top:var(--sp-8);">Five UI sounds</h3>
+    <div class="tone-grid" data-reveal>
+      <button class="tone-btn tap-target" data-tone="answered"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="var(--sage-text)" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4c0 1-1 2-2 2C10.5 21 3 13.5 3 6c0-1 1-2 2-2Z"/></svg><span>Call answered</span></button>
+      <button class="tone-btn tap-target" data-tone="booked"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="var(--amber-text)" stroke-width="2"><path d="M6 12.5 10.5 17 19 6"/></svg><span>Job booked</span></button>
+      <button class="tone-btn tap-target" data-tone="emergency"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="var(--coral-text)" stroke-width="2"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6z"/></svg><span>Emergency routed</span></button>
+      <button class="tone-btn tap-target" data-tone="ready"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2"><path d="M8 4h8v3H8zM6 6h12v16H6zM9 12h6M9 16h6"/></svg><span>Slip ready</span></button>
+      <button class="tone-btn tap-target" data-tone="error"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><span>Error</span></button>
+    </div>
+
+    <h3 class="h3" style="text-align:center;margin-top:var(--sp-8);">Three voices</h3>
+    <div class="voice-grid" data-reveal>
+      <div class="voice-card">
+        <p class="voice-name">June</p>
+        <p class="voice-desc">Warm alto</p>
+        <button class="btn btn-outline tap-target" data-voice="june">Play "hul-lo"</button>
+        <p class="disclosure-line">"Hi, you've reached Rivera Plumbing — I'm Hullo, their virtual assistant."</p>
+      </div>
+      <div class="voice-card">
+        <p class="voice-name">Theo</p>
+        <p class="voice-desc">Bright tenor</p>
+        <button class="btn btn-outline tap-target" data-voice="theo">Play "hul-lo"</button>
+        <p class="disclosure-line">"Hi, you've reached Rivera Plumbing — I'm Hullo, their virtual assistant."</p>
+      </div>
+      <div class="voice-card">
+        <p class="voice-name">Gus</p>
+        <p class="voice-desc">Calm baritone</p>
+        <button class="btn btn-outline tap-target" data-voice="gus">Play "hul-lo"</button>
+        <p class="disclosure-line">"Hi, you've reached Rivera Plumbing — I'm Hullo, their virtual assistant."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 09 IN THE WORLD ===================== -->
+<section id="ch09">
+  <div class="wrap">
+    <div class="slip">
+      <div class="slip-header">
+        <div class="slip-field"><b>To</b><span>You</span></div>
+        <div class="slip-field"><b>From</b><span>Rivera Plumbing</span></div>
+        <div class="slip-field"><b>Re</b><span>The van decal is on.</span></div>
+        <div class="slip-field"><b>Time</b><span>4:30 p.m.</span></div>
+      </div>
+      <div class="slip-ticks">
+        <span class="tick checked"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Will call again</span>
+      </div>
+    </div>
+    <h2 class="h2" style="text-align:center;margin-top:var(--sp-6);">From a 24 px icon to a 48 ft billboard.</h2>
+
+    <!-- (a) brand reel -->
+    <div class="world-block" data-reveal>
+      <div class="world-label"><span class="letter">a</span><h3 class="h3">30-second brand reel</h3></div>
+      <div class="reel-frame">
+        <div class="reel-scene active" data-scene="0"><svg viewBox="0 0 400 225"><rect width="400" height="225" fill="#141A26"/><text x="200" y="118" text-anchor="middle" font-family="Georgia,serif" font-size="26" fill="#FBF4E6">Scene 1 — The unanswered ring</text></svg></div>
+        <div class="reel-scene" data-scene="1"><svg viewBox="0 0 400 225"><rect width="400" height="225" fill="#1F2735"/><text x="200" y="118" text-anchor="middle" font-family="Georgia,serif" font-size="26" fill="#FBF4E6">Scene 2 — Hullo picks up</text></svg></div>
+        <div class="reel-scene" data-scene="2"><svg viewBox="0 0 400 225"><rect width="400" height="225" fill="#2E6650"/><text x="200" y="118" text-anchor="middle" font-family="Georgia,serif" font-size="26" fill="#FBF4E6">Scene 3 — The job gets booked</text></svg></div>
+        <div class="reel-scene" data-scene="3"><svg viewBox="0 0 400 225"><rect width="400" height="225" fill="#8F5300"/><text x="200" y="118" text-anchor="middle" font-family="Georgia,serif" font-size="26" fill="#FBF4E6">Scene 4 — The slip writes itself</text></svg></div>
+        <div class="reel-scene" data-scene="4"><svg viewBox="0 0 400 225"><rect width="400" height="225" fill="#B7321F"/><text x="200" y="118" text-anchor="middle" font-family="Georgia,serif" font-size="26" fill="#FBF4E6">Scene 5 — Owner sees it, mid-job</text></svg></div>
+        <div class="reel-scene" data-scene="5"><svg viewBox="0 0 400 225"><rect width="400" height="225" fill="#141A26"/><text x="200" y="108" text-anchor="middle" font-family="Georgia,serif" font-size="30" fill="#F5A524">Always answered.</text></svg></div>
+      </div>
+      <div class="reel-controls">
+        <button class="icon-btn tap-target" id="reelPlay" aria-label="Play the brand reel">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>
+        </button>
+        <span class="reel-time" id="reelTime">0:00 / 0:30</span>
+        <input type="range" class="reel-scrub" id="reelScrub" min="0" max="30" step="0.1" value="0" aria-label="Scrub the brand reel">
+      </div>
+      <p class="reel-scenes-label">Six coded 5-second scenes. Silent unless Sound is on.</p>
+    </div>
+
+    <!-- (b) owner app -->
+    <div class="world-block" data-reveal>
+      <div class="world-label"><span class="letter">b</span><h3 class="h3">Owner app</h3></div>
+      <div class="phone-carousel" id="phoneCarousel">
+        <div class="phone-card"><div class="phone-frame"><svg viewBox="0 0 200 420"><rect width="200" height="420" fill="var(--paper)"/><rect x="14" y="24" width="172" height="46" rx="6" fill="var(--surface)"/><text x="24" y="52" font-size="13" fill="#141A26">Renee Okafor · New</text><rect x="14" y="80" width="172" height="46" rx="6" fill="var(--surface)"/><rect x="14" y="136" width="172" height="46" rx="6" fill="var(--surface)"/></svg></div><p class="phone-caption">Slip inbox</p></div>
+        <div class="phone-card"><div class="phone-frame"><svg viewBox="0 0 200 420"><rect width="200" height="420" fill="var(--paper)"/><text x="20" y="40" font-size="14" fill="#141A26">Call summary</text><rect x="14" y="60" width="172" height="120" rx="8" fill="var(--surface)"/><text x="24" y="90" font-size="11" fill="#4B5263">Water heater, no hot water</text></svg></div><p class="phone-caption">Call summary</p></div>
+        <div class="phone-card"><div class="phone-frame"><svg viewBox="0 0 200 420"><rect width="200" height="420" fill="var(--paper)"/><text x="20" y="40" font-size="14" fill="#141A26">Booking</text><rect x="14" y="60" width="172" height="30" rx="15" fill="#F5A524"/><rect x="14" y="100" width="172" height="30" rx="15" fill="var(--surface)"/></svg></div><p class="phone-caption">Booking</p></div>
+        <div class="phone-card"><div class="phone-frame"><svg viewBox="0 0 200 420"><rect width="200" height="420" fill="var(--paper)"/><text x="20" y="40" font-size="14" fill="#141A26">Voice setup</text><circle cx="100" cy="140" r="40" fill="none" stroke="#8DB89A" stroke-width="4"/></svg></div><p class="phone-caption">Voice setup</p></div>
+        <div class="phone-card"><div class="phone-frame"><svg viewBox="0 0 200 420"><rect width="200" height="420" fill="var(--paper)"/><text x="20" y="40" font-size="14" fill="#141A26">Analytics</text><text x="20" y="60" font-size="9" fill="#8F5300">Sample</text><rect x="20" y="80" width="20" height="60" fill="#F5A524"/><rect x="50" y="60" width="20" height="80" fill="#F5A524"/><rect x="80" y="100" width="20" height="40" fill="#F5A524"/></svg></div><p class="phone-caption">Analytics (sample)</p></div>
+        <div class="phone-card"><div class="phone-frame"><svg viewBox="0 0 200 420"><rect width="200" height="420" fill="var(--paper)"/><text x="20" y="40" font-size="14" fill="#141A26">Welcome</text><g style="color:#141A26" transform="translate(50,80) scale(0.7)"><use href="#sym-wordmark"/></g></svg></div><p class="phone-caption">Onboarding</p></div>
+      </div>
+    </div>
+
+    <!-- (c) web -->
+    <div class="world-block" data-reveal>
+      <div class="world-label"><span class="letter">c</span><h3 class="h3">Web</h3></div>
+      <div class="web-mock">
+        <div class="chrome-bar"><span></span><span></span><span></span></div>
+        <div class="hero-mock">
+          <h4>Never miss another call.</h4>
+          <p class="lede" style="margin-inline:auto;font-size:15px;">The AI receptionist that answers in your business's own voice.</p>
+        </div>
+        <div class="pricing-table">
+          <div class="price-card"><b>Starter</b><div class="amount">$149<span>/mo</span></div><p style="font-size:12px;color:var(--text-soft);">Concept target</p></div>
+          <div class="price-card pro"><b>Pro</b><div class="amount">$349<span>/mo</span></div><p style="font-size:12px;color:var(--text-soft);">Concept target</p></div>
+          <div class="price-card"><b>Teams</b><div class="amount">Custom</div><p style="font-size:12px;color:var(--text-soft);">Concept target</p></div>
+        </div>
+        <p class="integrations-line">Works alongside Google Calendar, Jobber, ServiceTitan, Square Appointments.</p>
+      </div>
+    </div>
+
+    <!-- (d) campaign switcher -->
+    <div class="world-block" data-reveal>
+      <div class="world-label"><span class="letter">d</span><h3 class="h3">Campaign switcher</h3></div>
+      <div class="campaign-switcher">
+        <div class="campaign-frame" id="campaignFrame">
+          <div class="campaign-item active" data-c="0"><svg viewBox="0 0 400 300"><rect width="400" height="300" fill="#141A26"/><text x="200" y="150" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#F5A524">Always answered.</text><text x="200" y="270" text-anchor="middle" font-size="10" fill="#C9C2B3">Billboard · 48 × 14 ft</text></svg></div>
+          <div class="campaign-item" data-c="1"><svg viewBox="0 0 400 300"><rect width="400" height="300" fill="#FBF4E6"/><rect x="40" y="40" width="320" height="180" fill="#F3E8CF"/><text x="200" y="140" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="#141A26">Always answered.</text><text x="200" y="270" text-anchor="middle" font-size="10" fill="#4B5263">Transit card</text></svg></div>
+          <div class="campaign-item" data-c="2"><svg viewBox="0 0 400 300"><rect width="400" height="300" fill="#F26B5B"/><text x="200" y="150" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#FBF4E6">Always answered.</text><text x="200" y="270" text-anchor="middle" font-size="10" fill="#FBF4E6">Instagram · 1080 × 1350</text></svg></div>
+          <div class="campaign-item" data-c="3"><svg viewBox="0 0 400 300"><rect width="400" height="300" fill="#8DB89A"/><text x="200" y="150" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#141A26">Always answered.</text><text x="200" y="270" text-anchor="middle" font-size="10" fill="#141A26">Story · 1080 × 1920</text></svg></div>
+          <div class="campaign-item" data-c="4"><svg viewBox="0 0 400 300"><rect width="400" height="300" fill="#1F2735"/><text x="200" y="150" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#FBF4E6">Always answered.</text><text x="200" y="270" text-anchor="middle" font-size="10" fill="#C9C2B3">LinkedIn · 1200 × 627</text></svg></div>
+        </div>
+        <div class="campaign-nav" role="tablist" aria-label="Campaign formats">
+          <button role="tab" aria-selected="true" data-cnav="0">Billboard</button>
+          <button role="tab" aria-selected="false" data-cnav="1">Transit</button>
+          <button role="tab" aria-selected="false" data-cnav="2">Instagram</button>
+          <button role="tab" aria-selected="false" data-cnav="3">Story</button>
+          <button role="tab" aria-selected="false" data-cnav="4">LinkedIn</button>
+        </div>
+        <div class="ruler" aria-hidden="true"><span>24px</span><span>1080px</span><span>Billboard</span><span>48 ft</span></div>
+      </div>
+    </div>
+
+    <!-- (e) co-branding -->
+    <div class="world-block" data-reveal>
+      <div class="world-label"><span class="letter">e</span><h3 class="h3">Co-branding kit</h3></div>
+      <div class="decal-grid">
+        <div class="decal-card"><svg viewBox="0 0 200 120"><rect x="10" y="10" width="180" height="100" fill="none" stroke="var(--text)" stroke-width="2" stroke-dasharray="4 4"/><g style="color:var(--text)" transform="translate(50,35) scale(0.35)"><use href="#sym-wordmark"/></g><text x="100" y="95" text-anchor="middle" font-size="10" fill="var(--text-soft)">We always answer.</text></svg><p>Window decal</p></div>
+        <div class="decal-card"><svg viewBox="0 0 200 120"><rect x="10" y="30" width="180" height="60" rx="6" fill="var(--surface)" stroke="var(--text)" stroke-width="2"/><g style="color:var(--text)" transform="translate(55,45) scale(0.3)"><use href="#sym-wordmark"/></g><text x="100" y="80" text-anchor="middle" font-size="9" fill="var(--text-soft)">We always answer.</text></svg><p>Van-door decal</p></div>
+        <div class="decal-card"><svg viewBox="0 0 200 120"><rect x="30" y="15" width="140" height="90" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="2"/><g style="color:var(--text)" transform="translate(60,25) scale(0.32)"><use href="#sym-wordmark"/></g><text x="100" y="90" text-anchor="middle" font-size="9" fill="var(--text-soft)">We always answer.</text></svg><p>Counter card</p></div>
+      </div>
+    </div>
+
+    <!-- (f) stationery and swag -->
+    <div class="world-block" data-reveal>
+      <div class="world-label"><span class="letter">f</span><h3 class="h3">Stationery and swag</h3></div>
+      <div class="swag-grid">
+        <div class="swag-card"><svg viewBox="0 0 200 120"><rect x="20" y="20" width="160" height="90" rx="6" fill="var(--paper)" stroke="var(--text)" stroke-width="1.5"/><g style="color:var(--text)" transform="translate(45,45) scale(0.3)"><use href="#sym-wordmark"/></g><text x="35" y="90" font-size="9" fill="var(--text-soft)">hullo.example</text></svg><p>Business card</p></div>
+        <div class="swag-card sticky-peel" id="stickyPeel" role="button" tabindex="0" aria-label="Peel a slip from the sticky pad">
+          <svg viewBox="0 0 200 120"><rect x="50" y="20" width="100" height="90" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5"/><g class="peel-flap"><rect x="50" y="20" width="100" height="30" fill="var(--amber)" opacity=".5"/></g></svg><p>Sticky pad — click to peel</p></div>
+        <div class="swag-card"><svg viewBox="0 0 200 120"><path d="M80 20 L120 20 L130 34 L150 34 L150 50 L130 50 L130 110 L70 110 L70 50 L50 50 L50 34 L70 34Z" fill="var(--ink)" /><g style="color:var(--paper)" transform="translate(78,55) scale(0.14)"><use href="#sym-wordmark"/></g></svg><p>Ink tee</p></div>
+        <div class="swag-card"><svg viewBox="0 0 200 120"><path d="M55 35 h90 l10 70 h-110z" fill="var(--paper)" stroke="var(--text)" stroke-width="1.5"/><path d="M75 35 v-12 a25 12 0 0 1 50 0 v12" fill="none" stroke="var(--text)" stroke-width="3"/><g style="color:var(--text)" transform="translate(75,60) scale(0.16)"><use href="#sym-wordmark"/></g></svg><p>Paper tote</p></div>
+        <div class="swag-card"><svg viewBox="0 0 200 120"><rect x="20" y="30" width="160" height="80" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5"/><rect x="20" y="30" width="160" height="20" fill="var(--amber)"/><text x="100" y="44" text-anchor="middle" font-size="10" fill="var(--ink)">Booth · 10 × 10 ft</text></svg><p>Trade-show booth</p></div>
+        <div class="swag-card"><svg viewBox="0 0 200 120"><rect x="20" y="15" width="70" height="90" fill="var(--paper)" stroke="var(--text)" stroke-width="1.5"/><rect x="95" y="15" width="70" height="90" fill="var(--ink)" stroke="var(--text)" stroke-width="1.5"/><g style="color:var(--ink)" transform="translate(28,40) scale(0.18)"><use href="#sym-compact"/></g><g style="color:var(--paper)" transform="translate(103,40) scale(0.18)"><use href="#sym-compact"/></g></svg><p>Brand-book spread</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CODA ===================== -->
+<section id="coda" class="coda">
+  <div class="wrap">
+    <div class="slip" style="text-align:left;display:inline-block;max-width:420px;">
+      <div class="slip-header">
+        <div class="slip-field"><b>To</b><span>You</span></div>
+        <div class="slip-field"><b>From</b><span>A hiring manager</span></div>
+        <div class="slip-field"><b>Re</b><span>Let's talk.</span></div>
+        <div class="slip-field"><b>Time</b><span>5:47 p.m.</span></div>
+      </div>
+      <div class="slip-ticks">
+        <span class="tick checked"><svg viewBox="0 0 24 24" style="color:var(--text)" aria-hidden="true"><use href="#sym-tick"/></svg>Urgent</span>
+      </div>
+    </div>
+
+    <h2 class="h1" style="margin-top:var(--sp-6);">One idea, from strategy to sound.</h2>
+
+    <div class="targets" data-reveal>
+      <div class="target"><div class="num" data-count="41" data-suffix="%">0%</div><p class="lbl">Unaided recall of "the message-slip AI" in trade-association surveys</p><p class="concept">Concept target</p></div>
+      <div class="target"><div class="num" data-count="4" data-suffix="%">0%</div><p class="lbl">Homepage demo-request conversion</p><p class="concept">Concept target</p></div>
+      <div class="target"><div class="num" data-count="85" data-suffix="%">0%</div><p class="lbl">Rate the call as good as or better than a person</p><p class="concept">Concept target</p></div>
+      <div class="target"><div class="num" data-count="100" data-suffix="%">0%</div><p class="lbl">Launch assets built from design-system tokens</p><p class="concept">Concept target</p></div>
+    </div>
+
+    <p class="reflection">"I start with one human insight, the message slip, and test every choice against it. Directing a brand means carrying one idea from a positioning line to a sound without losing it."</p>
+
+    <div class="tooltip-wrap" style="display:inline-block;">
+      <button class="btn btn-primary tap-target magnetic" id="nextProject">Next project</button>
+      <span class="tooltip" style="left:0;right:auto;">See the next case study.</span>
+    </div>
+
+    <div class="coda-slip">
+      <div class="slip" style="text-align:left;">
+        <div class="slip-header">
+          <div class="slip-field"><b>To</b><span>You</span></div>
+          <div class="slip-field"><b>Re</b><span>hullo</span></div>
+        </div>
+        <p style="font-family:var(--font-hand);font-size:20px;">Thanks for taking the call.</p>
+      </div>
+      <span class="call-ended-stamp" id="callEndedStamp">Call ended</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Hullo is an invented brand. Every person shown is invented. Every visual is drawn. Other product names appear as plain text only, with no logos and no partnerships.</p>
+  </div>
+</footer>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var root = document.documentElement;
+  var prefersReducedQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var prefersReduced = prefersReducedQuery.matches;
+  function applyMotionClass(){
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      prefersReduced = true; root.classList.remove('motion-ok');
+    } else {
+      prefersReduced = false; root.classList.add('motion-ok');
+    }
+  }
+  applyMotionClass();
+  try{ prefersReducedQuery.addEventListener('change', applyMotionClass); }catch(e){}
+
+  function qs(s,c){ return (c||document).querySelector(s); }
+  function qsa(s,c){ return Array.prototype.slice.call((c||document).querySelectorAll(s)); }
+
+  /* ---------------- reveal-on-scroll ---------------- */
+  var revealEls = qsa('[data-reveal]');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); } });
+    }, { threshold: 0.22 });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('is-in'); });
+  }
+
+  /* ---------------- magnetic buttons (desktop, fine pointer) ---------------- */
+  var canHover = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(canHover){
+    qsa('.magnetic').forEach(function(btn){
+      btn.addEventListener('mousemove', function(e){
+        var r = btn.getBoundingClientRect();
+        var mx = e.clientX - (r.left + r.width/2);
+        var my = e.clientY - (r.top + r.height/2);
+        btn.style.transform = 'translate(' + (mx*0.22) + 'px,' + (my*0.22) + 'px)';
+      });
+      btn.addEventListener('mouseleave', function(){ btn.style.transform = ''; });
+    });
+  }
+
+  /* ---------------- chapter nav: desktop rail + mobile sheet ---------------- */
+  var sectionIds = ['hero','ch01','ch02','ch03','ch04','ch05','ch06','ch07','ch08','ch09','coda'];
+  var sections = sectionIds.map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  var sheet = qs('#chapterSheet'), sheetTrigger = qs('#sheetTrigger'), sheetBackdrop = qs('#sheetBackdrop');
+  function openSheet(){ if(sheet){ sheet.classList.add('open'); sheetTrigger.setAttribute('aria-expanded','true'); } }
+  function closeSheet(){ if(sheet){ sheet.classList.remove('open'); sheetTrigger.setAttribute('aria-expanded','false'); } }
+  if(sheetTrigger){ sheetTrigger.addEventListener('click', function(){ sheet.classList.contains('open') ? closeSheet() : openSheet(); }); }
+  if(sheetBackdrop){ sheetBackdrop.addEventListener('click', closeSheet); }
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeSheet(); });
+
+  qsa('[data-goto]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-goto');
+      var el = document.getElementById(id);
+      if(el){ el.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' }); }
+      closeSheet();
+    });
+  });
+  var railButtons = qsa('.rail button');
+  function setActiveRail(id){
+    railButtons.forEach(function(b){ b.setAttribute('aria-current', b.getAttribute('data-goto') === id ? 'true' : 'false'); });
+  }
+  if('IntersectionObserver' in window && sections.length){
+    var secIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ setActiveRail(en.target.id); } });
+    }, { rootMargin: '-35% 0px -55% 0px' });
+    sections.forEach(function(s){ secIO.observe(s); });
+  }
+
+  /* ---------------- scroll-depth call timer + progress ---------------- */
+  var callTimerText = qs('#callTimerText'), callTimerTextM = qs('#callTimerTextM');
+  var mtopProgress = qs('#mtopProgress'), callEndedStamp = qs('#callEndedStamp');
+  var timerTicking = false;
+  function updateScrollProgress(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    var totalSeconds = Math.round(pct * 300);
+    var mm = String(Math.floor(totalSeconds/60)).padStart(2,'0');
+    var ss = String(totalSeconds%60).padStart(2,'0');
+    var ended = pct >= 0.998;
+    if(callTimerText) callTimerText.textContent = ended ? 'CALL ENDED' : ('ON CALL ' + mm + ':' + ss);
+    if(callTimerTextM) callTimerTextM.textContent = ended ? 'ENDED' : (mm + ':' + ss);
+    if(mtopProgress) mtopProgress.style.width = (pct*100) + '%';
+    if(callEndedStamp){ callEndedStamp.classList.toggle('show', ended); }
+  }
+  window.addEventListener('scroll', function(){
+    if(!timerTicking){ requestAnimationFrame(function(){ updateScrollProgress(); timerTicking = false; }); timerTicking = true; }
+  }, { passive:true });
+  updateScrollProgress();
+
+  /* ---------------- hero slip: drag / Enter to tear off ---------------- */
+  var heroSlip = qs('#heroSlip');
+  if(heroSlip){
+    var dragging = false, startY = 0, currentY = 0;
+    function tearOff(){
+      heroSlip.classList.add('torn');
+      heroSlip.setAttribute('aria-hidden','true');
+      setTimeout(function(){
+        var ch01 = document.getElementById('ch01');
+        if(ch01) ch01.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block:'start' });
+      }, prefersReduced ? 0 : 260);
+    }
+    heroSlip.addEventListener('pointerdown', function(e){
+      dragging = true; startY = e.clientY; heroSlip.classList.add('dragging');
+      try{ heroSlip.setPointerCapture(e.pointerId); }catch(err){}
+    });
+    heroSlip.addEventListener('pointermove', function(e){
+      if(!dragging) return;
+      currentY = Math.max(0, e.clientY - startY);
+      heroSlip.style.transform = 'translateY(' + currentY + 'px) rotate(' + (currentY*0.03) + 'deg)';
+    });
+    function endDrag(){
+      if(!dragging) return;
+      dragging = false; heroSlip.classList.remove('dragging');
+      if(currentY >= 120){ tearOff(); } else { heroSlip.style.transform = ''; }
+      currentY = 0;
+    }
+    heroSlip.addEventListener('pointerup', endDrag);
+    heroSlip.addEventListener('pointercancel', endDrag);
+    heroSlip.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); tearOff(); } });
+  }
+
+  /* ---------------- 02 persona tear-off ---------------- */
+  qsa('[data-tear]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var persona = btn.closest('.persona');
+      if(persona) persona.classList.add('torn');
+    });
+  });
+
+  /* ---------------- 03 map dots (mobile highlight) ---------------- */
+  var mapDots = qsa('.map-dot');
+  var mapCards = qsa('.map-cards .card');
+  mapDots.forEach(function(dot, i){
+    dot.addEventListener('click', function(){
+      dot.classList.toggle('tip-open');
+      if(mapCards[i]){
+        mapCards[i].style.borderColor = 'var(--amber)';
+        mapCards[i].scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block:'nearest' });
+      }
+    });
+  });
+
+  /* ---------------- 05 resizable / steppable logo frame ---------------- */
+  var resizerFrame = qs('#resizerFrame'), resizerSvg = qs('#resizerSvg'), resizerLabel = qs('#resizerLabel'), resizerSlider = qs('#resizerSlider');
+  var stages = [
+    { name:'Full lockup', use:'#sym-wordmark', vb:'0 0 600 200', w:'340px' },
+    { name:'Compact',     use:'#sym-compact',  vb:'0 0 260 200', w:'260px' },
+    { name:'Symbol',      use:'#sym-mark',     vb:'0 0 160 200', w:'180px' },
+    { name:'Favicon',     use:'#sym-mark',     vb:'0 0 160 200', w:'96px'  },
+    { name:'App icon',    use:'#sym-mark',     vb:'0 0 160 200', w:'96px'  }
+  ];
+  var stageIndex = 0, fromResize = false;
+  function applyStage(i){
+    stageIndex = Math.max(0, Math.min(stages.length - 1, i));
+    var s = stages[stageIndex];
+    if(resizerSvg){ resizerSvg.setAttribute('viewBox', s.vb); resizerSvg.innerHTML = '<use href="' + s.use + '"></use>'; }
+    if(resizerLabel) resizerLabel.textContent = s.name;
+    if(resizerFrame){
+      resizerFrame.setAttribute('aria-valuenow', stageIndex + 1);
+      if(!fromResize && window.innerWidth >= 760){ resizerFrame.style.width = s.w; }
+    }
+    if(resizerSlider) resizerSlider.value = stageIndex;
+  }
+  if(resizerFrame){
+    qs('#resizerPrev').addEventListener('click', function(){ applyStage(stageIndex - 1); });
+    qs('#resizerNext').addEventListener('click', function(){ applyStage(stageIndex + 1); });
+    resizerFrame.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowLeft'){ e.preventDefault(); applyStage(stageIndex - 1); }
+      if(e.key === 'ArrowRight'){ e.preventDefault(); applyStage(stageIndex + 1); }
+    });
+    if(resizerSlider){
+      resizerSlider.addEventListener('input', function(){ applyStage(parseInt(resizerSlider.value, 10)); });
+    }
+    if('ResizeObserver' in window){
+      var ro = new ResizeObserver(function(entries){
+        for(var k=0;k<entries.length;k++){
+          var w = entries[k].contentRect.width;
+          var idx = w < 110 ? 4 : w < 150 ? 3 : w < 220 ? 2 : w < 300 ? 1 : 0;
+          if(idx !== stageIndex){ fromResize = true; applyStage(idx); fromResize = false; }
+        }
+      });
+      ro.observe(resizerFrame);
+    }
+    applyStage(0);
+  }
+
+  /* ---------------- 05 misuse / replay logo ---------------- */
+  function triggerWordmarkPlay(svg){
+    if(!svg) return;
+    if(prefersReduced){ svg.classList.remove('play'); return; }
+    svg.classList.remove('play');
+    void svg.getBoundingClientRect();
+    svg.classList.add('play');
+  }
+  var replayBtn = qs('#replayLogo');
+  if(replayBtn){ replayBtn.addEventListener('click', function(){ triggerWordmarkPlay(qs('#replayWordmark')); }); }
+  if(!prefersReduced){
+    /* play the hero wordmark once, right on load — no gate to click through first */
+    triggerWordmarkPlay(qs('#heroWordmark'));
+  }
+
+  /* ---------------- 06 swatch click-to-copy ---------------- */
+  qsa('.swatch').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var hex = btn.getAttribute('data-hex');
+      function flag(){
+        var f = btn.querySelector('.copied-flag');
+        if(f){ f.classList.add('show'); setTimeout(function(){ f.classList.remove('show'); }, 1400); }
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(hex).then(flag, flag);
+      } else { flag(); }
+    });
+  });
+
+  /* ---------------- 07 segmented control ---------------- */
+  var segBtns = qsa('.segctrl button');
+  var callSlips = qsa('.call-slip');
+  segBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var state = btn.getAttribute('data-state');
+      segBtns.forEach(function(b){ b.setAttribute('aria-selected', b === btn ? 'true' : 'false'); });
+      callSlips.forEach(function(slip){
+        var match = slip.getAttribute('data-state') === state;
+        slip.style.opacity = match ? '1' : '0';
+        slip.style.pointerEvents = match ? 'auto' : 'none';
+        if(match && state === 'emergency'){
+          var pulse = slip.querySelector('.ring-pulse');
+          if(pulse){ pulse.classList.remove('pulse'); void pulse.getBoundingClientRect(); pulse.classList.add('pulse'); }
+        }
+      });
+    });
+  });
+
+  /* ================= WEB AUDIO ================= */
+  var audioCtx = null, analyser = null, analyserData = null;
+  function ensureAudioCtx(){
+    if(!audioCtx){
+      try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){ audioCtx = null; }
+    }
+    if(audioCtx && audioCtx.state === 'suspended'){ audioCtx.resume(); }
+    return audioCtx;
+  }
+  function getAnalyser(ctx){
+    if(!analyser){
+      analyser = ctx.createAnalyser(); analyser.fftSize = 64;
+      analyser.connect(ctx.destination);
+      analyserData = new Uint8Array(analyser.frequencyBinCount);
+    }
+    return analyser;
+  }
+  function envGain(ctx, peak, t0, attack, decay){
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(Math.max(peak,0.001), t0 + attack);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + attack + decay);
+    return g;
+  }
+  function tone(ctx, freq, type, t0, dur, peak, dest){
+    peak = peak || 0.2;
+    var osc = ctx.createOscillator();
+    osc.type = type; osc.frequency.setValueAtTime(freq, t0);
+    var g = envGain(ctx, peak, t0, Math.min(0.03, dur*0.25), dur);
+    osc.connect(g); g.connect(dest || ctx.destination);
+    osc.start(t0); osc.stop(t0 + dur + 0.05);
+    return osc;
+  }
+  function noiseBurst(ctx, t0, dur, peak, dest){
+    var bufferSize = Math.max(1, Math.floor(ctx.sampleRate * dur));
+    var buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    var data = buffer.getChannelData(0);
+    for(var i=0;i<bufferSize;i++){ data[i] = (Math.random()*2-1) * (1 - i/bufferSize); }
+    var src = ctx.createBufferSource(); src.buffer = buffer;
+    var filt = ctx.createBiquadFilter(); filt.type = 'bandpass'; filt.frequency.value = 900; filt.Q.value = 0.7;
+    var g = envGain(ctx, peak, t0, 0.01, dur);
+    src.connect(filt); filt.connect(g); g.connect(dest || ctx.destination);
+    src.start(t0);
+  }
+
+  var soundOn = false;
+  var soundToggle = qs('#soundToggle'), soundTooltip = qs('#soundTooltip'), soundWave = qs('#soundWave');
+  function setSound(on){
+    soundOn = on;
+    if(soundToggle){
+      soundToggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+      soundToggle.setAttribute('aria-label', on ? 'Turn sound off.' : 'Turn sound on.');
+    }
+    if(soundTooltip) soundTooltip.textContent = on ? 'Turn sound off.' : 'Turn sound on.';
+    if(soundWave) soundWave.style.opacity = on ? '1' : '.35';
+  }
+  if(soundToggle){
+    soundToggle.addEventListener('click', function(){
+      ensureAudioCtx();
+      var turningOn = !soundOn;
+      setSound(turningOn);
+      if(turningOn){ var ctx = ensureAudioCtx(); if(ctx) tone(ctx, 880, 'sine', ctx.currentTime, 0.12, 0.15); }
+    });
+  }
+  setSound(false);
+
+  function playSonicLogo(withVisual){
+    var ctx = ensureAudioCtx(); if(!ctx) return;
+    var t0 = ctx.currentTime + 0.02;
+    var an = getAnalyser(ctx);
+    noiseBurst(ctx, t0, 0.16, 0.05, an);
+    tone(ctx, 392.00, 'triangle', t0 + 0.12, 0.55, 0.2, an);
+    tone(ctx, 784.00, 'sine', t0 + 0.12, 0.4, 0.05, an);
+    tone(ctx, 523.25, 'sine', t0 + 0.75, 0.85, 0.22, an);
+    tone(ctx, 784.87, 'triangle', t0 + 0.78, 0.6, 0.05, an);
+    if(withVisual) animateSonicVisual(t0, ctx);
+  }
+  var meterRAF = null;
+  function animateSonicVisual(t0, ctx){
+    var playhead = qs('#playhead');
+    var bars = qsa('.meters i');
+    if(!playhead) return;
+    playhead.setAttribute('opacity','1');
+    var dur = 2.0;
+    function frame(){
+      var elapsed = ctx.currentTime - t0;
+      var p = Math.min(1, Math.max(0, elapsed/dur));
+      var x = 20 + p*340;
+      playhead.setAttribute('x1', x); playhead.setAttribute('x2', x);
+      if(analyser){
+        analyser.getByteFrequencyData(analyserData);
+        bars.forEach(function(b,i){
+          var v = analyserData[i % analyserData.length] / 255;
+          b.style.height = Math.max(6, v*100) + '%';
+        });
+      }
+      if(p < 1){ meterRAF = requestAnimationFrame(frame); }
+      else { playhead.setAttribute('opacity','0'); bars.forEach(function(b){ b.style.height = '6%'; }); }
+    }
+    if(meterRAF) cancelAnimationFrame(meterRAF);
+    meterRAF = requestAnimationFrame(frame);
+  }
+  var heroSonic = qs('#playSonicHero');
+  if(heroSonic){ heroSonic.addEventListener('click', function(){ setSound(true); playSonicLogo(false); }); }
+  var ch08Sonic = qs('#playSonic08');
+  if(ch08Sonic){ ch08Sonic.addEventListener('click', function(){ setSound(true); playSonicLogo(true); }); }
+
+  var toneFns = {
+    answered: function(ctx){ var t=ctx.currentTime; tone(ctx,440,'sine',t,0.12,0.18); tone(ctx,554.37,'sine',t+0.1,0.16,0.18); },
+    booked: function(ctx){ var t=ctx.currentTime; tone(ctx,523.25,'triangle',t,0.1,0.2); tone(ctx,659.25,'triangle',t+0.09,0.18,0.2); },
+    emergency: function(ctx){ var t=ctx.currentTime; [0,0.12,0.24].forEach(function(o,i){ tone(ctx, i%2? 550:660, 'square', t+o, 0.09, 0.15); }); },
+    ready: function(ctx){ tone(ctx,784,'sine',ctx.currentTime,0.22,0.16); },
+    error: function(ctx){ tone(ctx,220,'square',ctx.currentTime,0.22,0.12); }
+  };
+  qsa('.tone-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var ctx = ensureAudioCtx(); if(!ctx) return;
+      setSound(true);
+      var fn = toneFns[btn.getAttribute('data-tone')];
+      if(fn) fn(ctx);
+    });
+  });
+
+  var voiceSettings = {
+    june: { base:300, bright:1300, type:'triangle' },
+    theo: { base:430, bright:2400, type:'triangle' },
+    gus:  { base:180, bright:650,  type:'sine' }
+  };
+  qsa('[data-voice]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var ctx = ensureAudioCtx(); if(!ctx) return;
+      setSound(true);
+      var s = voiceSettings[btn.getAttribute('data-voice')] || voiceSettings.june;
+      var t = ctx.currentTime + 0.02;
+      var filt = ctx.createBiquadFilter(); filt.type = 'bandpass'; filt.frequency.value = s.bright; filt.Q.value = 3;
+      filt.connect(ctx.destination);
+      tone(ctx, s.base, s.type, t, 0.18, 0.2, filt);
+      tone(ctx, s.base*1.35, s.type, t+0.2, 0.28, 0.2, filt);
+    });
+  });
+
+  var ringDemoIcon = qs('#ringDemoIcon');
+  var ringDemoBtn = qs('#ringDemoBtn');
+  if(ringDemoBtn){
+    ringDemoBtn.addEventListener('click', function(){
+      if(!prefersReduced && ringDemoIcon){ ringDemoIcon.classList.remove('playing'); void ringDemoIcon.getBoundingClientRect(); ringDemoIcon.classList.add('playing'); }
+      var ctx = ensureAudioCtx();
+      if(ctx){ setSound(true); var t=ctx.currentTime; tone(ctx,660,'sine',t,0.05,0.12); tone(ctx,740,'sine',t+0.18,0.05,0.12); tone(ctx,500,'sine',t+0.42,0.09,0.12); }
+    });
+  }
+
+  /* ---------------- 09a brand reel ---------------- */
+  var reelScenes = qsa('.reel-scene');
+  var reelScrub = qs('#reelScrub'), reelTime = qs('#reelTime'), reelPlayBtn = qs('#reelPlay');
+  function fmtTime(t){ var m = Math.floor(t/60), s = Math.floor(t%60); return m + ':' + String(s).padStart(2,'0'); }
+  function setReelTime(t){
+    t = Math.max(0, Math.min(30, t));
+    if(reelScrub) reelScrub.value = t;
+    var idx = Math.min(5, Math.floor(t/5));
+    reelScenes.forEach(function(sc,i){ sc.classList.toggle('active', i === idx); });
+    if(reelTime) reelTime.textContent = fmtTime(t) + ' / 0:30';
+  }
+  if(reelScrub){ reelScrub.addEventListener('input', function(){ setReelTime(parseFloat(reelScrub.value)); }); }
+  var reelPlaying = false, reelRAF = null, reelStart = 0, reelStartVal = 0;
+  if(reelPlayBtn){
+    reelPlayBtn.addEventListener('click', function(){
+      reelPlaying = !reelPlaying;
+      if(reelPlaying){
+        reelStartVal = reelScrub ? parseFloat(reelScrub.value) : 0;
+        if(reelStartVal >= 30) reelStartVal = 0;
+        reelStart = performance.now();
+        (function step(){
+          var elapsed = (performance.now() - reelStart) / 1000;
+          var t = reelStartVal + elapsed;
+          if(t >= 30){ setReelTime(30); reelPlaying = false; return; }
+          setReelTime(t);
+          if(reelPlaying){ reelRAF = requestAnimationFrame(step); }
+        })();
+      } else if(reelRAF){ cancelAnimationFrame(reelRAF); }
+    });
+  }
+  setReelTime(0);
+
+  /* ---------------- 09d campaign switcher ---------------- */
+  var campaignItems = qsa('.campaign-item');
+  var campaignNav = qsa('[data-cnav]');
+  campaignNav.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var idx = btn.getAttribute('data-cnav');
+      campaignItems.forEach(function(it){ it.classList.toggle('active', it.getAttribute('data-c') === idx); });
+      campaignNav.forEach(function(b){ b.setAttribute('aria-selected', b === btn ? 'true' : 'false'); });
+    });
+  });
+
+  /* ---------------- 09f sticky-pad peel ---------------- */
+  var stickyPeel = qs('#stickyPeel');
+  if(stickyPeel){
+    function togglePeel(){ stickyPeel.classList.toggle('peeled'); }
+    stickyPeel.addEventListener('click', togglePeel);
+    stickyPeel.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); togglePeel(); } });
+  }
+
+  /* ---------------- coda target counters ---------------- */
+  var targetEls = qsa('.target .num');
+  var countedOnce = false;
+  function runCounters(){
+    if(countedOnce) return; countedOnce = true;
+    targetEls.forEach(function(el){
+      var to = parseFloat(el.getAttribute('data-count')) || 0;
+      var suffix = el.getAttribute('data-suffix') || '';
+      if(prefersReduced){ el.textContent = to + suffix; return; }
+      var start = performance.now(), dur = 900;
+      function frame(now){
+        var p = Math.min(1, (now-start)/dur);
+        var eased = 1 - Math.pow(1-p, 3);
+        el.textContent = Math.round(to*eased) + suffix;
+        if(p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+  var codaSection = qs('#coda');
+  if(codaSection && 'IntersectionObserver' in window){
+    var codaIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ runCounters(); codaIO.disconnect(); } });
+    }, { threshold: 0.3 });
+    codaIO.observe(codaSection);
+  } else { runCounters(); }
+
+  /* ---------------- theme toggle ---------------- */
+  var themeToggle = qs('#themeToggle'), themeTooltip = qs('#themeTooltip');
+  var theme = null; /* null = follow system */
+  function isDarkNow(){ return theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches); }
+  function applyTheme(){
+    if(theme){ root.setAttribute('data-theme', theme); } else { root.removeAttribute('data-theme'); }
+    var dark = isDarkNow();
+    if(themeToggle){
+      themeToggle.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      themeToggle.setAttribute('aria-label', dark ? 'Switch to the light theme.' : 'Switch to the dark theme.');
+    }
+    if(themeTooltip) themeTooltip.textContent = dark ? 'Switch to the light theme.' : 'Switch to the dark theme.';
+  }
+  if(themeToggle){
+    themeToggle.addEventListener('click', function(){
+      theme = isDarkNow() ? 'light' : 'dark';
+      applyTheme();
+    });
+  }
+  applyTheme();
+
+})();
+</script>
+
+
+</body></html>
